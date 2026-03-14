@@ -1,0 +1,325 @@
+/* Contact Me Section — Black & Gold */
+.ct-root {
+  position: relative;
+  background: #000;
+  padding: 120px 24px 0;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+.ct-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+/* Header */
+.ct-header {
+  text-align: center;
+  margin-bottom: 72px;
+}
+
+.ct-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #ffd700;
+  margin: 0 0 14px;
+  text-transform: uppercase;
+}
+
+.ct-title {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 16px;
+  letter-spacing: -1.5px;
+}
+
+.ct-title-accent {
+  background: linear-gradient(135deg, #ffd700, #ffed4e, #e6a800);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ct-subtitle {
+  font-size: 1rem;
+  color: #777;
+  margin: 0;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* =============================================
+   Two-column layout
+   ============================================= */
+.ct-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+  margin-bottom: 80px;
+}
+
+/* Illustration side */
+.ct-illus-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.contact-illustration {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+}
+
+/* Info cards */
+.ct-info-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 340px;
+}
+
+.ct-info-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,215,0,0.12);
+  border-radius: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.ct-info-card:hover {
+  border-color: rgba(255,215,0,0.35);
+}
+
+.ct-info-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.ct-info-label {
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #555;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.ct-info-value {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ccc;
+}
+
+/* =============================================
+   Form
+   ============================================= */
+.ct-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ct-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ct-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #888;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.ct-input,
+.ct-textarea {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,215,0,0.12);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+.ct-input::placeholder,
+.ct-textarea::placeholder {
+  color: #444;
+}
+
+.ct-input:focus,
+.ct-textarea:focus {
+  border-color: rgba(255,215,0,0.5);
+  box-shadow: 0 0 0 3px rgba(255,215,0,0.06);
+}
+
+.ct-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Submit button */
+.ct-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #1a1600;
+  border: none;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 0 24px rgba(255,215,0,0.2);
+  align-self: flex-start;
+}
+
+.ct-submit:hover {
+  box-shadow: 0 0 40px rgba(255,215,0,0.4);
+  transform: translateY(-2px);
+}
+
+.ct-submit:active {
+  transform: translateY(0);
+}
+
+.ct-send-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* =============================================
+   Social Links
+   ============================================= */
+.ct-socials {
+  margin-bottom: 60px;
+}
+
+.ct-social-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.ct-div-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent);
+}
+
+.ct-div-text {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #555;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ct-social-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.ct-social-link {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,215,0,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.ct-social-link:hover {
+  color: #ffd700;
+  border-color: rgba(255,215,0,0.4);
+  background: rgba(255,215,0,0.06);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255,215,0,0.1);
+}
+
+.ct-social-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* =============================================
+   Footer
+   ============================================= */
+.ct-footer {
+  text-align: center;
+  padding: 28px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.ct-footer-text {
+  font-size: 0.75rem;
+  color: #444;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* =============================================
+   Responsive
+   ============================================= */
+@media (max-width: 768px) {
+  .ct-root { padding: 80px 16px 0; }
+
+  .ct-layout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .ct-illus-side {
+    order: -1;
+  }
+
+  .contact-illustration {
+    max-width: 280px;
+  }
+
+  .ct-submit {
+    align-self: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .ct-social-link {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+}
