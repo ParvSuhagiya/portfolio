@@ -1,0 +1,52 @@
+.hero-decor-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* let clicks pass through to user interactions */
+  z-index: 0;
+  overflow: visible;
+}
+
+.decor-item {
+  position: absolute;
+  opacity: 0.7;
+}
+
+/* Base placements for Desktop */
+.decor-item-1 {
+  width: 160px;
+  height: 160px;
+  top: 15%;
+  left: 8%;
+}
+
+.decor-item-2 {
+  width: 130px;
+  height: 130px;
+  bottom: 20%;
+  right: 10%;
+}
+
+.decor-item-3 {
+  width: 110px;
+  height: 110px;
+  bottom: 25%;
+  left: 12%;
+}
+
+.decor-item-4 {
+  width: 140px;
+  height: 140px;
+  top: 25%;
+  right: 6%;
+}
+
+/* Mobile Adjustments to avoid cluttering the face or text */
+@media (max-width: 900px) {
+  .decor-item-1 { width: 100px; height: 100px; top: 12%; left: 5%; }
+  .decor-item-2 { width: 80px; height: 80px; bottom: 15%; right: 5%; }
+  .decor-item-3 { width: 70px; height: 70px; bottom: 10%; left: 8%; opacity: 0.4; }
+  .decor-item-4 { width: 90px; height: 90px; top: 18%; right: -2%; opacity: 0.4; }
+}

@@ -1,13 +1,15 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './App.css'
-import Boxes from "./components/Boxes.jsx"
 import SkillsSection from "./components/SkillsSection.jsx"
 import Navbar from "./components/Navbar.jsx"
 import AboutMe from "./components/AboutMe.jsx"
+import ParticleBackground from "./components/ParticleBackground.jsx"
+import HeroDecor from "./components/HeroDecor.jsx"
 import Projects from "./components/Projects.jsx"
+import Timeline from "./components/Timeline.jsx"
 import Certificates from "./components/Certificates.jsx"
 import ContactMe from "./components/ContactMe.jsx"
 
@@ -37,11 +39,26 @@ function App() {
     descSplitDone.current = true; // Mark as done
   }
 
+  let text = "I’m a passionate Full Stack Developer who enjoys building modern, scalable web applications. I work across both frontend and backend, creating seamless user experiences and efficient server-side logic. I love turning ideas into real-world products and continuously improving my skills with new technologies."
+  let words = text.split(" ");
+
+  
+  const importantWords = ["Full", "Stack", "Developer", "modern,", "scalable", "frontend", "backend,", "seamless", "efficient", "server-side", "real-world", "technologies."];
+  
+  const [para,setPara] = useState(words);
+  
   useEffect(() => {
     // Description splitting is now handled in useGSAP
   }, []);
 
   useGSAP(() => {
+    // Apply important class to highlighted words using your DOM approach
+    gsap.utils.toArray('.about-word').forEach((e) => {
+      if(importantWords.includes(e.textContent.trim())) {
+        e.id = "important";
+      }
+    });
+
     // Split description text first
     description_split();
 
@@ -132,7 +149,7 @@ function App() {
       buttonRef.current,
       {
         opacity: 0,
-        y: 50
+        y: 20
       },
       {
         opacity: 1,
@@ -143,10 +160,41 @@ function App() {
       }
     );
 
+    // about me text animation
+
+    gsap.fromTo(
+      '.about-word',
+      { opacity: 0.2},
+      {
+        opacity: 1,
+        stagger: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: "#about",
+          start: "center center",
+          end: "+=1000", // scroll distance
+          scrub: true,
+          pin: true,
+        },
+        onUpdate: function () {
+          const wordElements = gsap.utils.toArray('.about-word');
+          const progress = this.progress;
+          wordElements.forEach((word, i) => {
+            if (progress * wordElements.length > i) {
+              word.classList.add("active");
+            } else {
+              word.classList.remove("active");
+            }
+          });
+        },
+      }
+    );
+
   });
 
   return (
     <>
+      <ParticleBackground />
       <div className="intro-container" ref={introRef}>
         <h1 className="intro-text" ref={textRef}>
           <div className="char_container">
@@ -159,8 +207,8 @@ function App() {
         </h1>
       </div>
       <Navbar />
-      <Boxes />
       <section className="hero-section" id="home">
+        <HeroDecor />
         <div className="hero-container">
           <div className="hero-photo" ref={photoRef}>
             <img src="https://res.cloudinary.com/dbouvoh2b/image/upload/v1772976227/profile_final_photo_hfdo45.jpg" alt="Profile" className="profile-img" />
@@ -186,9 +234,10 @@ function App() {
       </section>
 
       <div className="main-content">
-        <AboutMe />
+        <AboutMe words={para} />
         <SkillsSection />
         <Projects />
+        <Timeline />
         <Certificates />
         <ContactMe />
       </div>

@@ -8,75 +8,90 @@ gsap.registerPlugin(ScrollTrigger);
 // Inline SVG illustration — person at desk with floating mail/chat icons
 const ContactIllustration = () => (
   <svg className="contact-illustration" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* Desk */}
-    <rect x="120" y="280" width="260" height="12" rx="4" fill="#1a1500" stroke="#ffd700" strokeWidth="1" opacity="0.6"/>
-    <rect x="160" y="292" width="8" height="60" rx="2" fill="#1a1500" stroke="#ffd700" strokeWidth="0.5" opacity="0.4"/>
-    <rect x="332" y="292" width="8" height="60" rx="2" fill="#1a1500" stroke="#ffd700" strokeWidth="0.5" opacity="0.4"/>
+    <defs>
+      <linearGradient id="ct-gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#ffd700" />
+        <stop offset="100%" stopColor="#e6a800" />
+      </linearGradient>
+      <linearGradient id="ct-screen-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stopColor="#1a1a1a" />
+        <stop offset="100%" stopColor="#0a0a0a" />
+      </linearGradient>
+      <filter id="ct-glow" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="4" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+      <filter id="ct-soft-glow" x="-10%" y="-10%" width="120%" height="120%">
+        <feGaussianBlur stdDeviation="2" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
 
-    {/* Monitor */}
-    <rect x="185" y="200" width="130" height="80" rx="6" fill="#0a0800" stroke="#ffd700" strokeWidth="1.5"/>
-    <rect x="191" y="206" width="118" height="62" rx="3" fill="#111" />
-    {/* Screen content — code lines */}
-    <rect x="200" y="216" width="50" height="3" rx="1" fill="#ffd700" opacity="0.6"/>
-    <rect x="200" y="224" width="70" height="3" rx="1" fill="#ffd700" opacity="0.3"/>
-    <rect x="200" y="232" width="40" height="3" rx="1" fill="#ffd700" opacity="0.5"/>
-    <rect x="200" y="240" width="60" height="3" rx="1" fill="#ffd700" opacity="0.2"/>
-    <rect x="200" y="248" width="80" height="3" rx="1" fill="#ffd700" opacity="0.4"/>
-    <rect x="200" y="256" width="35" height="3" rx="1" fill="#ffd700" opacity="0.3"/>
-    {/* Monitor stand */}
-    <rect x="240" y="280" width="20" height="4" rx="1" fill="#1a1500" stroke="#ffd700" strokeWidth="0.5" opacity="0.5"/>
+    {/* Background Grid Lines (Subtle) */}
+    <path d="M50 0 V400 M150 0 V400 M250 0 V400 M350 0 V400 M450 0 V400" stroke="rgba(255,215,0,0.03)" strokeWidth="1"/>
+    <path d="M0 50 H500 M0 150 H500 M0 250 H500 M0 350 H500" stroke="rgba(255,215,0,0.03)" strokeWidth="1"/>
 
-    {/* Person — sitting at desk */}
-    {/* Head */}
-    <circle cx="250" cy="160" r="22" fill="#1a1500" stroke="#ffd700" strokeWidth="1.5"/>
-    {/* Eyes */}
-    <circle cx="242" cy="157" r="2.5" fill="#ffd700" opacity="0.8"/>
-    <circle cx="258" cy="157" r="2.5" fill="#ffd700" opacity="0.8"/>
-    {/* Smile */}
-    <path d="M243 167 Q250 173 257 167" stroke="#ffd700" strokeWidth="1.5" fill="none" strokeLinecap="round" opacity="0.6"/>
-    {/* Body */}
-    <path d="M235 182 Q250 195 265 182" fill="#1a1500" stroke="#ffd700" strokeWidth="1.5"/>
-    <rect x="230" y="185" width="40" height="50" rx="8" fill="#1a1500" stroke="#ffd700" strokeWidth="1.5"/>
-    {/* Arms */}
-    <path d="M230 200 Q200 220 210 260" stroke="#ffd700" strokeWidth="1.5" fill="none" strokeLinecap="round" opacity="0.7"/>
-    <path d="M270 200 Q300 220 290 260" stroke="#ffd700" strokeWidth="1.5" fill="none" strokeLinecap="round" opacity="0.7"/>
-    {/* Keyboard */}
-    <rect x="210" y="272" width="80" height="8" rx="3" fill="#0a0800" stroke="#ffd700" strokeWidth="0.8" opacity="0.5"/>
+    {/* Desk Surface - 3D Glassmorphism effect */}
+    <path d="M100 300 Q250 280 400 300 L420 330 Q250 310 80 330 Z" fill="rgba(26,21,0,0.8)" stroke="url(#ct-gold-grad)" strokeWidth="1" opacity="0.9"/>
+    <path d="M80 330 Q250 310 420 330 V335 Q250 315 80 335 Z" fill="#ffd700" opacity="0.2"/>
 
-    {/* Floating mail envelope — top right */}
-    <g className="contact-float-1" transform="translate(370, 100)">
-      <rect x="0" y="0" width="50" height="35" rx="5" fill="#1a1500" stroke="#ffd700" strokeWidth="1.5"/>
-      <path d="M5 5 L25 22 L45 5" stroke="#ffd700" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-      <path d="M5 30 L18 20" stroke="#ffd700" strokeWidth="1" fill="none" opacity="0.4"/>
-      <path d="M45 30 L32 20" stroke="#ffd700" strokeWidth="1" fill="none" opacity="0.4"/>
+    {/* Elegant Modern Display Monitor */}
+    <rect x="175" y="150" width="150" height="90" rx="8" fill="url(#ct-screen-grad)" stroke="url(#ct-gold-grad)" strokeWidth="1.5" filter="url(#ct-soft-glow)"/>
+    <rect x="182" y="157" width="136" height="76" rx="4" fill="#000" />
+    
+    {/* Screen Content - refined lines */}
+    <rect x="195" y="170" width="45" height="4" rx="2" fill="url(#ct-gold-grad)" opacity="0.8"/>
+    <rect x="195" y="182" width="75" height="3" rx="1.5" fill="#ffd700" opacity="0.4"/>
+    <rect x="195" y="192" width="55" height="3" rx="1.5" fill="#ffd700" opacity="0.3"/>
+    <rect x="195" y="202" width="85" height="3" rx="1.5" fill="#ffd700" opacity="0.5"/>
+    <rect x="195" y="212" width="30" height="3" rx="1.5" fill="url(#ct-gold-grad)"/>
+
+    {/* Monitor Stand */}
+    <path d="M245 240 L235 285 H265 L255 240 Z" fill="#1a1a1a" stroke="url(#ct-gold-grad)" strokeWidth="1"/>
+    <rect x="220" y="285" width="60" height="4" rx="2" fill="url(#ct-gold-grad)" opacity="0.8"/>
+
+    {/* Abstract Premium Chat bubbles & Mail (Floating) */}
+    {/* Mail */}
+    <g className="contact-float-1" transform="translate(360, 90)">
+      <rect x="0" y="0" width="56" height="40" rx="6" fill="rgba(26,21,0,0.9)" stroke="url(#ct-gold-grad)" strokeWidth="1.5" filter="url(#ct-glow)"/>
+      <path d="M4 6 L28 22 L52 6" stroke="url(#ct-gold-grad)" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M4 34 L20 20" stroke="#ffd700" strokeWidth="1" fill="none" opacity="0.5" strokeLinecap="round"/>
+      <path d="M52 34 L36 20" stroke="#ffd700" strokeWidth="1" fill="none" opacity="0.5" strokeLinecap="round"/>
     </g>
 
-    {/* Floating chat bubble — top left */}
-    <g className="contact-float-2" transform="translate(60, 80)">
-      <rect x="0" y="0" width="55" height="35" rx="10" fill="#1a1500" stroke="#ffd700" strokeWidth="1.5"/>
-      <rect x="10" y="10" width="25" height="3" rx="1" fill="#ffd700" opacity="0.6"/>
-      <rect x="10" y="17" width="35" height="3" rx="1" fill="#ffd700" opacity="0.3"/>
-      <rect x="10" y="24" width="18" height="3" rx="1" fill="#ffd700" opacity="0.5"/>
-      <polygon points="15,35 10,48 25,35" fill="#1a1500" stroke="#ffd700" strokeWidth="1.5"/>
+    {/* Chat Bubble */}
+    <g className="contact-float-2" transform="translate(60, 110)">
+      <rect x="0" y="0" width="60" height="42" rx="12" fill="rgba(26,21,0,0.9)" stroke="url(#ct-gold-grad)" strokeWidth="1.5" filter="url(#ct-glow)"/>
+      <path d="M15 15 H45 M15 24 H35" stroke="url(#ct-gold-grad)" strokeWidth="2" strokeLinecap="round"/>
+      <polygon points="12,42 16,55 26,42" fill="rgba(26,21,0,0.9)" stroke="url(#ct-gold-grad)" strokeWidth="1.5"/>
+      <line x1="13.5" y1="42" x2="24.5" y2="42" stroke="rgba(26,21,0,0.9)" strokeWidth="2.5"/> {/* Hide overlap */}
     </g>
 
-    {/* Floating @ symbol — right */}
-    <g className="contact-float-3" transform="translate(380, 220)">
-      <circle cx="20" cy="20" r="20" fill="none" stroke="#ffd700" strokeWidth="1.5" opacity="0.5"/>
-      <text x="11" y="27" fontFamily="Poppins, sans-serif" fontSize="18" fontWeight="700" fill="#ffd700" opacity="0.7">@</text>
+    {/* @ Symbol 3D-ish */}
+    <g className="contact-float-3" transform="translate(390, 200)">
+      <circle cx="25" cy="25" r="22" fill="rgba(20,20,0,0.8)" stroke="url(#ct-gold-grad)" strokeWidth="1" opacity="0.8" filter="url(#ct-glow)"/>
+      <text x="13" y="32" fontFamily="'Poppins', sans-serif" fontSize="22" fontWeight="800" fill="url(#ct-gold-grad)">@</text>
     </g>
 
-    {/* Location pin — left */}
-    <g className="contact-float-4" transform="translate(80, 200)">
-      <path d="M15 0 C6.7 0 0 6.7 0 15 C0 25 15 38 15 38 C15 38 30 25 30 15 C30 6.7 23.3 0 15 0Z" fill="#1a1500" stroke="#ffd700" strokeWidth="1.5" opacity="0.6"/>
-      <circle cx="15" cy="14" r="5" fill="none" stroke="#ffd700" strokeWidth="1.5" opacity="0.6"/>
+    {/* Elegant Golden Location Pin */}
+    <g className="contact-float-4" transform="translate(90, 230)">
+      <path d="M16 0 C7 0 0 7 0 16 C0 26 16 40 16 40 C16 40 32 26 32 16 C32 7 25 0 16 0Z" fill="rgba(26,21,0,0.9)" stroke="url(#ct-gold-grad)" strokeWidth="1.5" filter="url(#ct-glow)"/>
+      <circle cx="16" cy="15" r="6" fill="url(#ct-gold-grad)" opacity="0.9"/>
     </g>
 
-    {/* Small sparkles */}
-    <circle cx="340" cy="170" r="3" fill="#ffd700" opacity="0.3"/>
-    <circle cx="130" cy="140" r="2" fill="#ffd700" opacity="0.4"/>
-    <circle cx="400" cy="280" r="2.5" fill="#ffd700" opacity="0.2"/>
-    <circle cx="100" cy="300" r="2" fill="#ffd700" opacity="0.3"/>
+    {/* Sparkling Stars/Accents */}
+    <g filter="url(#ct-glow)">
+      <path d="M340 130 L343 138 L351 141 L343 144 L340 152 L337 144 L329 141 L337 138 Z" fill="url(#ct-gold-grad)"/>
+      <path d="M130 90 L132 95 L137 97 L132 99 L130 104 L128 99 L123 97 L128 95 Z" fill="#ffd700" opacity="0.8"/>
+      <circle cx="430" cy="270" r="2" fill="#ffd700"/>
+      <circle cx="80" cy="300" r="1.5" fill="#ffd700" opacity="0.6"/>
+    </g>
   </svg>
 );
 
