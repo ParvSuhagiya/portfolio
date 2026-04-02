@@ -1,16 +1,153 @@
-# React + Vite
+# 🚀 Parv Suhagiya - Developer Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive, and interactive **personal portfolio website** built to showcase my projects, skills, and developer journey.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Demo
 
-## React Compiler
+👉 https://parv-suhagiya-porfolio.netlify.app
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🧑‍💻 About Me
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Hi, I'm **Parv Suhagiya** 👋
+A passionate **Full Stack Developer** focused on building scalable and modern web applications.
+
+* 🚀 Currently working on: **SkillProof** (Developer skill verification platform)
+* 🌱 Learning: Advanced React, MERN architecture
+* 💡 Interested in: Real-time systems, developer platforms, and UI/UX
+
+---
+
+## ✨ Features
+
+* 🎨 Clean and modern UI (dark theme)
+* 📱 Fully responsive design
+* ⚡ Fast performance with Vite
+* 📂 Projects showcase with live demo videos
+* 🧠 Skills section
+* 📬 Contact section
+* 🎥 Embedded project demos (iframe integration)
+
+---
+
+## 🛠️ Tech Stack
+
+### 💻 Frontend
+
+* React.js
+* JavaScript (ES6+)
+* HTML5 & CSS3
+
+### 🎨 Styling
+
+* Tailwind CSS / Custom CSS
+
+### ⚙️ Tools & Build
+
+* Vite
+* Git & GitHub
+
+---
+
+## 📂 Project Highlights
+
+### 🔹 SkillProof
+
+A scalable platform for verifying developer skills using:
+
+* Real-time coding challenges
+* Behavior tracking
+* Credibility scoring
+
+---
+
+### 🔹 DevNetwork
+
+A developer collaboration platform with:
+
+* Developer profiles
+* Team formation
+* Leaderboards
+
+---
+
+### 🔹 Portfolio Website
+
+This project itself — designed to represent my work with a clean UI and smooth experience.
+
+---
+
+## 📁 Folder Structure
+
+```
+portfolio/
+│── public/
+│── src/
+│   ├── components/
+│   ├── assets/
+│   ├── pages/
+│   └── App.jsx
+│── index.html
+│── package.json
+```
+
+---
+
+## ⚙️ Installation
+
+Clone the repo:
+
+```bash
+git clone https://github.com/ParvSuhagiya/portfolio.git
+cd portfolio
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run locally:
+
+```bash
+npm run dev
+```
+
+---
+
+## 📸 Screenshots
+
+*(Add your UI screenshots here — this will boost your profile a lot)*
+
+---
+
+## 📬 Contact
+
+* GitHub: https://github.com/ParvSuhagiya
+* LinkedIn: *(add your link)*
+* Email: *(add your email)*
+
+---
+
+## 🌟 Future Improvements
+
+* 🌗 Dark/Light mode toggle
+* 🧠 AI-based project suggestions
+* 📊 GitHub stats integration
+* ✍️ Blog section
+
+---
+
+## ⭐ Support
+
+If you like this project, give it a ⭐ — it helps a lot!
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
