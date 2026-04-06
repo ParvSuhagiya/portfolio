@@ -1,11 +1,17 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import gsap from 'gsap'
 import './navbar.css'
 
 const Navbar = () => {
   const navbarRef = useRef(null);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMobileOpen(!isMobileOpen);
+  };
 
   const handleMouseEnter = () => {
+    if (window.innerWidth <= 900) return;
     const navbar = navbarRef.current;
     if (!navbar) return;
     const texts = navbar.querySelectorAll('.t');
@@ -26,6 +32,7 @@ const Navbar = () => {
   };
 
   const handleMouseLeave = () => {
+    if (window.innerWidth <= 900) return;
     const navbar = navbarRef.current;
     if (!navbar) return;
     const texts = navbar.querySelectorAll('.t');
@@ -51,6 +58,9 @@ const Navbar = () => {
   const handleClick = (sectionId) => {
     const el = document.getElementById(sectionId);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (window.innerWidth <= 900) {
+      setIsMobileOpen(false);
+    }
   };
 
   const items = [
@@ -63,21 +73,26 @@ const Navbar = () => {
   ];
 
   return (
-    <div
-      className='navbar'
-      ref={navbarRef}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <ul className='list_ul'>
-        {items.map((item) => (
-          <li key={item.label} className='list_li' onClick={() => handleClick(item.sectionId)}>
-            <i className={item.icon}></i>
-            <span className="t">{item.label}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <div className="hamburger-icon" onClick={toggleMenu}>
+        <i className={isMobileOpen ? 'ri-close-line' : 'ri-menu-line'}></i>
+      </div>
+      <div
+        className={`navbar ${isMobileOpen ? 'mobile-open' : ''}`}
+        ref={navbarRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <ul className='list_ul'>
+          {items.map((item) => (
+            <li key={item.label} className='list_li' onClick={() => handleClick(item.sectionId)}>
+              <i className={item.icon}></i>
+              <span className="t">{item.label}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 };
 

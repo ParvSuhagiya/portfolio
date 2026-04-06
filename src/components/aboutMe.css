@@ -59,3 +59,106 @@
 .important{
     color: #F8D837;
 }
+
+/* About Details & Links Section */
+.about-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 70px;
+  gap: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.about-location {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.about-location svg {
+  width: 26px;
+  height: 26px;
+  color: #ffd700;
+}
+
+.about-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.about-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.about-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.leetcode-btn {
+  background: rgba(255, 161, 22, 0.1);
+  color: #ffa116;
+  border: 1px solid rgba(255, 161, 22, 0.3);
+}
+
+.leetcode-btn:hover {
+  background: rgba(255, 161, 22, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 161, 22, 0.2);
+}
+
+.resume-btn {
+  background: linear-gradient(135deg, #ffd700, #e6a800);
+  color: #000;
+  border: 1px solid transparent;
+}
+
+.resume-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+}
+
+@media (max-width: 1024px) {
+  #about {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  #about {
+    font-size: 24px;
+  }
+  .about-links {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  .about-btn {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  #about {
+    font-size: 20px;
+  }
+}

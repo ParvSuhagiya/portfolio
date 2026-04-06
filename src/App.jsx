@@ -23,6 +23,7 @@ function App() {
   const descRef = useRef(null);
   const buttonRef = useRef(null);
   const buttonChars = "View My Work".split('');
+  const resumeChars = "RESUME".split('');
   const chars = "PARV'S PORTFOLIO".split('');
   const descSplitDone = useRef(false);
 
@@ -222,13 +223,23 @@ function App() {
               A passionate full-stack developer creating beautiful and functional web experiences. 
               I specialize in React, GSAP animations, and modern web design. Let's build something amazing together!
             </p>
-            <button className="cta-button" ref={buttonRef}>
-              {buttonChars.map((char, i) => (
-                <span key={i} className="button-char">
-                  {char === ' ' ? '\u00A0' : char}
-                </span>
-              ))}
-            </button>
+            <div className="hero-buttons" ref={buttonRef}>
+              <a href="#project_sec" className="cta-button">
+                {buttonChars.map((char, i) => (
+                  <span key={i} className="button-char">
+                    {char === ' ' ? '\u00A0' : char}
+                  </span>
+                ))}
+              </a>
+              <a href="/resume.pdf" download="Parv_Suhagiya_Resume.pdf" className="cta-button">
+                {resumeChars.map((char, i) => (
+                  <span key={i} className="button-char">
+                    {char === ' ' ? '\u00A0' : char}
+                  </span>
+                ))}
+              </a>
+              
+            </div>
           </div>
         </div>
       </section>

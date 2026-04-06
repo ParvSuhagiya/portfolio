@@ -142,7 +142,7 @@ const Projects = () => {
       <div className="proj-inner">
         <header className="proj-header" ref={titleRef}>
           <p className="proj-eyebrow">FEATURED WORK</p>
-          <h2 className="proj-title">
+          <h2 id='project_sec' className="proj-title">
             My <span className="proj-title-accent">Projects</span>
           </h2>
         </header>
