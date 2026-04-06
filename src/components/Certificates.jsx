@@ -7,53 +7,29 @@ gsap.registerPlugin(ScrollTrigger);
 
 const certificatesData = [
   {
-    title: 'React Developer Certification',
+    title: 'Appian AI Fundamentals Certification',
     issuer: 'Meta',
     date: 'January 2024',
-    description: 'Comprehensive certification covering React fundamentals, hooks, state management, component architecture, testing with Jest, and building production-ready applications following industry best practices.',
-    image: '/images/certificates/react.png',
+    description: 'This certificate recognizes the successful completion of training in Appian’s AI capabilities, including AI-driven process automation, intelligent decision-making, and enterprise workflow integration. It demonstrates proficiency in leveraging AI within business processes to enhance efficiency, scalability, and data-driven outcomes.',
+    image: 'https://res.cloudinary.com/dgoh0rhen/image/upload/v1775493913/appian_ai_certificate_seorpo.png',
     credentialId: 'META-RD-2024-0892',
   },
   {
-    title: 'JavaScript Algorithms & Data Structures',
+    title: 'Elite Hackathon Participation Certificate',
     issuer: 'freeCodeCamp',
     date: 'November 2023',
-    description: 'Mastered core JavaScript concepts including ES6+, regular expressions, debugging, data structures, algorithm scripting, object-oriented programming, and functional programming paradigms.',
-    image: '/images/certificates/javascript.png',
+    description: 'This certificate recognizes active participation in a competitive hackathon focused on building innovative solutions to real-world problems. It demonstrates hands-on experience in coding, teamwork, and rapid problem-solving under time constraints, reflecting strong technical and collaborative skills.',
+    image: 'https://res.cloudinary.com/dgoh0rhen/image/upload/v1775493914/elite_hack_certificate_zo9z8t.jpg',
     credentialId: 'FCC-JSADS-2023',
   },
   {
-    title: 'Responsive Web Design',
+    title: 'Synaptix AI Certification',
     issuer: 'freeCodeCamp',
     date: 'September 2023',
-    description: 'Completed projects demonstrating proficiency in HTML5 semantic elements, CSS3 Flexbox, Grid, animations, responsive design principles, and accessibility best practices.',
-    image: '/images/certificates/webdesign.png',
+    description: 'This certificate recognizes the successful completion of training in advanced artificial intelligence concepts, including machine learning, data analytics, and AI-driven automation. It demonstrates the ability to apply intelligent systems for solving real-world problems and building data-driven solutions.',
+    image: 'https://res.cloudinary.com/dgoh0rhen/image/upload/v1775493914/synaptix_ai_a0bp7j.jpg',
     credentialId: 'FCC-RWD-2023',
-  },
-  {
-    title: 'Full-Stack Web Development',
-    issuer: 'Udemy',
-    date: 'March 2024',
-    description: 'End-to-end full-stack development certification covering Node.js, Express, MongoDB, REST APIs, authentication, deployment, and building production web applications from scratch.',
-    image: '/images/certificates/fullstack.png',
-    credentialId: 'UDEMY-FSWD-2024',
-  },
-  {
-    title: 'Git & GitHub Mastery',
-    issuer: 'Coursera',
-    date: 'August 2023',
-    description: 'Certification in version control using Git, branching strategies, merge conflict resolution, pull requests, collaborative workflows, CI/CD pipelines, and GitHub Actions.',
-    image: '/images/certificates/git.png',
-    credentialId: 'COURSERA-GGM-2023',
-  },
-  {
-    title: 'Python for Data Science',
-    issuer: 'IBM',
-    date: 'December 2023',
-    description: 'Certification covering Python programming, data analysis with Pandas and NumPy, data visualization with Matplotlib, and introductory machine learning concepts for data-driven applications.',
-    image: '/images/certificates/python.png',
-    credentialId: 'IBM-PDS-2023',
-  },
+  }
 ];
 
 const Certificates = () => {
