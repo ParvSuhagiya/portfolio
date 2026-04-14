@@ -124,6 +124,14 @@ const Projects = () => {
               className="proj-card"
               ref={el => cardRefs.current[i] = el}
               onClick={() => openModal(i)}
+              onMouseMove={(e) => {
+                if (!cardRefs.current[i]) return;
+                const rect = cardRefs.current[i].getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                cardRefs.current[i].style.setProperty("--mouse-x", `${x}px`);
+                cardRefs.current[i].style.setProperty("--mouse-y", `${y}px`);
+              }}
             >
               <div className="proj-card-img">
                 {p.demoVideoLink ? (

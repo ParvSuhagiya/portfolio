@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-const PARTICLE_COUNT = 500;
+const PARTICLE_COUNT = 150;
 const SIZES  = [1, 1, 1.5, 2, 2, 3];   // weighted — more small than big
 const rand   = (min, max) => Math.random() * (max - min) + min;
 
@@ -12,6 +12,13 @@ const ParticleBackground = () => {
     const ctx    = canvas.getContext('2d');
     const dpr    = Math.min(window.devicePixelRatio || 1, 2);
     let W, H, particles, rafId;
+    let mouse = { x: -1000, y: -1000 };
+
+    const onMouseMove = (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
+    window.addEventListener('mousemove', onMouseMove);
 
     function resize() {
       W = window.innerWidth;
@@ -61,6 +68,21 @@ const ParticleBackground = () => {
         p.x  += p.vx + Math.sin(p.wobbleOff) * p.wobbleAmp;
         p.y  += p.vy;
 
+        // Optimized Reactive Mouse Repulsion 
+        const dx = mouse.x - p.x;
+        const dy = mouse.y - p.y;
+        
+        // Skip heavy square roots if completely out of bounds (using cheaper square compare)
+        const distSq = dx * dx + dy * dy;
+        const maxDistSq = 180 * 180; 
+
+        if (distSq < maxDistSq) {
+          const dist = Math.sqrt(distSq);
+          const force = (180 - dist) / 180;
+          p.x -= (dx / dist) * force * 2.5;
+          p.y -= (dy / dist) * force * 2.5;
+        }
+
         // Spin
         p.rotation += p.rotSpeed;
 
@@ -108,6 +130,7 @@ const ParticleBackground = () => {
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener('resize', onResize);
+      window.removeEventListener('mousemove', onMouseMove);
     };
   }, []);
 

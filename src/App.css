@@ -63,28 +63,6 @@ body {
   overflow: hidden;
 }
 
-
-.cursor{
-  width:20px;
-  height:20px;
-
-  border:2px solid white;
-  border-radius:50%;
-
-  position:fixed;
-  top:0;
-  left:0;
-
-  pointer-events:none;
-  z-index:9999;
-
-  transform: translate(-50%, -50%);
-
-  will-change: transform;
-
-  mix-blend-mode: difference;
-}
-
 .hero-section {
   min-height: 100vh;
   height: 100vh;
