@@ -386,3 +386,23 @@ body {
     font-size: 1.8rem;
   }
 }
+
+/* ========================================= */
+/* SplitType Global Fixes                    */
+/* ========================================= */
+
+/* Fix disappearing gradient text when split */
+[class*="-accent"] .char,
+.section-title .char,
+.highlight .char {
+  background: inherit;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Finer mask reveal for stagger animation */
+.word {
+  overflow: hidden;
+  display: inline-flex; /* prevents line breaking inside words */
+}

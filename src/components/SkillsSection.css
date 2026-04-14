@@ -90,6 +90,13 @@
   background-clip: text;
 }
 
+.sk-title-accent .word{
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #e6a800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* =============================================
    Stats Row
    ============================================= */

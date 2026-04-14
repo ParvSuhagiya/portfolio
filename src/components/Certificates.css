@@ -40,6 +40,12 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+.cert-title-accent .word{
+  background: linear-gradient(135deg, #ffd700, #ffed4e, #e6a800);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
 /* Grid */
 .cert-grid {

@@ -2,7 +2,9 @@ import { useRef, useEffect, useState } from 'react'
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import SplitType from 'split-type';
 import './App.css'
+
 import SkillsSection from "./components/SkillsSection.jsx"
 import Navbar from "./components/Navbar.jsx"
 import AboutMe from "./components/AboutMe.jsx"
@@ -65,19 +67,72 @@ function App() {
 
     // Intro animation with stagger effect
     gsap.fromTo(
-  '.char',
-  {
-    y: 100,
-    scale: 0.97
-  },
-  {
-    y: 15,
-    scale: 1,
-    duration: 0.8,
-    ease: "expo.out",
-    stagger: 0.03
-  }
-);
+      '.intro-text .char',
+      {
+        y: 100,
+        scale: 0.97
+      },
+      {
+        y: 15,
+        scale: 1,
+        duration: 0.8,
+        ease: "expo.out",
+        stagger: 0.03
+      }
+    );
+
+    // Apply exact user requested animation to all other text
+    const genericTexts = gsap.utils.toArray('h2, h3, h4, h5, h6, p').filter((el) => {
+      // Avoid breaking specific pre-animated blocks, intro, hero texts, or complex SVG/Link nests
+      if (
+        el.closest('.intro-container') ||
+        el.closest('.hero-content') ||
+        el.closest('.aboutMe_root') || 
+        el.classList.contains('hero-description') ||
+        el.classList.contains('proj-eyebrow') ||
+        el.classList.contains('cert-eyebrow') ||
+        el.querySelector('svg') ||
+        el.querySelector('a')
+      ) {
+        return false;
+      }
+      return el.innerText.trim().length > 0;
+    });
+
+    genericTexts.forEach((el) => {
+      // Give overflow hide to all parent containers as requested
+      el.style.overflow = "hidden";
+      // adding padding bottom so characters aren't clipped initially if there's no margin
+      // but let's just apply the pure user request
+      
+      const split = new SplitType(el, { types: 'lines, words, chars' });
+      
+      // We also ensure word level overflow hidden for tighter mask reveals
+      // but applying it to parent handles most cases smoothly.
+      
+      if (split.chars && split.chars.length > 0) {
+        gsap.fromTo(
+          split.chars,
+          {
+            y: 100,
+            scale: 0.97
+          },
+          {
+            y: 15, // exactly as requested
+            scale: 1,
+            duration: 0.8,
+            ease: "expo.out",
+            stagger: 0.03,
+            scrollTrigger: {
+              trigger: el,
+              start: "top 90%",
+              once: true
+            }
+          }
+        );
+      }
+    });
+
 
     // Remove intro after animation
     gsap.to(introRef.current, {
