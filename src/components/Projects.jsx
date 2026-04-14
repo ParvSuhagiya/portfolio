@@ -7,65 +7,35 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projectsData = [
   {
-    title: 'Portfolio Website',
-    category: 'Frontend',
-    tech: ['React', 'GSAP', 'CSS3'],
-    description: 'A stunning personal portfolio built with React and GSAP animations. Features smooth scroll-triggered animations, interactive UI elements, and a fully responsive design with a dark theme aesthetic.',
+    title: 'KrishiSaathi: Empowering Indian Farmers with AI',
+    category: 'MERN-Stack',
+    tech: ['React', 'Node.js', 'MongoDB', 'Express' , 'tailwind', 'mongoose'],
+    description: 'KrishiSaathi is a comprehensive digital platform designed to revolutionize agriculture in India by connecting farmers with cutting-edge technology, real-time market intelligence, and a supportive community.',
     image: '/images/projects/portfolio.png',
-    demoLink: 'https://example.com',
-    githubLink: 'https://github.com',
-    demoVideoLink: 'https://www.youtube.com/embed/pkKn8q5AvsY?si=zDC9VkJhc57_YUuI'
+    demoLink: 'krishi-saathi-elite-hack.vercel.app',
+    githubLink: 'https://github.com/Jivan-Patel/KrishiSaathi_v2.0',
+    demoVideoLink: 'https://www.youtube.com/embed/I8OA94DMIoc?si=dGDQF2D9bmoqulQc'
   },
   {
-    title: 'E-Commerce Platform',
-    category: 'Full-Stack',
-    tech: ['React', 'Node.js', 'MongoDB'],
-    description: 'A complete e-commerce solution with product listings, shopping cart, user authentication, payment integration, and an admin dashboard for inventory management.',
+    title: 'TimeCure AI-powered appointment sheduler',
+    category: 'MERN-Stack',
+    tech: ['React', 'Node.js', 'MongoDB', 'Express' , 'tailwind', 'mongoose'],
+    description: 'AI-powered appointment scheduling system with no-show prediction, smart queue management, and seamless rescheduling.',
     image: '/images/projects/ecommerce.png',
-    demoLink: 'https://example.com',
-    githubLink: 'https://github.com',
-    demoVideoLink: ''
+    demoLink: 'cortex-crew-time-cure.vercel.app',
+    githubLink: 'https://github.com/Jivan-Patel/CortexCrew_TimeCure',
+    demoVideoLink: 'https://www.youtube.com/embed/GVgYAkWXVuU?si=NaqlTL1hv6KaxvHj'
   },
   {
-    title: 'Task Manager App',
+    title: 'Fleet-Flow Transport Management System',
     category: 'Full-Stack',
-    tech: ['React', 'Python', 'PostgreSQL'],
-    description: 'A productivity application featuring drag-and-drop task management, real-time collaboration, deadline tracking, and customizable project boards inspired by Kanban methodology.',
+    tech: ['React', 'Node.js', 'MongoDB', 'Express' , 'tailwind', 'mongoose'],
+    description: 'FleetFlow is an intelligent fleet management system designed to streamline logistics, monitor vehicle operations, and optimize costs through role-based dashboards and real-time insights. It features advanced modules for vehicle tracking, driver management, fuel monitoring, maintenance logging, and financial analytics — all wrapped in a modern glass',
     image: '/images/projects/taskmanager.png',
-    demoLink: 'https://example.com',
-    githubLink: 'https://github.com',
-    demoVideoLink: ''
-  },
-  {
-    title: 'Weather Dashboard',
-    category: 'Frontend',
-    tech: ['JavaScript', 'API', 'CSS3'],
-    description: 'A dynamic weather application that displays real-time weather data, 7-day forecasts, and interactive maps using multiple weather APIs with a beautiful glassmorphic interface.',
-    image: '/images/projects/weather.png',
-    demoLink: 'https://example.com',
-    githubLink: 'https://github.com',
-    demoVideoLink: ''
-  },
-  {
-    title: 'Chat Application',
-    category: 'Full-Stack',
-    tech: ['React', 'Socket.io', 'Node.js'],
-    description: 'A real-time messaging application with private and group chats, message history, typing indicators, file sharing, and end-to-end encryption support.',
-    image: '/images/projects/chat.png',
-    demoLink: 'https://example.com',
-    githubLink: 'https://github.com',
-    demoVideoLink: ''
-  },
-  {
-    title: 'Blog Platform',
-    category: 'Full-Stack',
-    tech: ['React', 'Node.js', 'MongoDB'],
-    description: 'A modern blogging platform with a rich text editor, image uploads, categories and tags, commenting system, and SEO-optimized page rendering.',
-    image: '/images/projects/blog.png',
-    demoLink: 'https://example.com',
-    githubLink: 'https://github.com',
-    demoVideoLink: ''
-  },
+    demoLink: 'cortex-crew-time-cure.vercel.app',
+    githubLink: 'https://github.com/ParvSuhagiya/fleetWOrkFlow_oddo',
+    demoVideoLink: 'https://www.youtube.com/embed/FwW55JRI5H8?si=XSzY7mh-zpyrWdhW'
+  }
 ];
 
 const Projects = () => {

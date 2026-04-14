@@ -65,21 +65,19 @@ function App() {
 
     // Intro animation with stagger effect
     gsap.fromTo(
-      '.char',
-      {
-        opacity: 0,
-        scale: 0.5,
-        y: 100
-      },
-      {
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        duration: 0.3,
-        ease: "back.out",
-        stagger: 0.08
-      }
-    );
+  '.char',
+  {
+    y: 100,
+    scale: 0.97
+  },
+  {
+    y: 15,
+    scale: 1,
+    duration: 0.8,
+    ease: "expo.out",
+    stagger: 0.03
+  }
+);
 
     // Remove intro after animation
     gsap.to(introRef.current, {
@@ -165,7 +163,7 @@ function App() {
 
     gsap.fromTo(
       '.about-word',
-      { opacity: 0.2},
+      { opacity: 0.1},
       {
         opacity: 1,
         stagger: 0.2,

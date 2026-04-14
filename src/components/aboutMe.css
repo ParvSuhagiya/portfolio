@@ -3,6 +3,8 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 80px 20px;
+
+
 }
 
 .about-quote {
@@ -36,6 +38,8 @@
     padding: 0 10%;
     font-size: 45px;
     font-weight: 700;
+
+    line-height: 50px;
 }
 
 .about-word {

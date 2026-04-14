@@ -10,12 +10,12 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 export const hackathonData = [
   {
     id: 1,
-    title: "Global AI Hackathon",
-    organization: "OpenAI & Microsoft",
-    date: "March 2026",
-    track: "Generative AI",
-    result: "Winner 🥇",
-    projectName: "NexusAI",
+    title: "CRAFTTHON",
+    organization: "Gandhinagar University",
+    date: "April 2026",
+    track: "Ai",
+    result: "Participated",
+    projectName: "TimeCure",
     description: "Built an autonomous AI agent capable of multi-step reasoning and web browsing. Integrated real-time data synthesis.",
     team: [
         "https://ui-avatars.com/api/?name=PA&background=1a1a1a&color=fff",
@@ -28,12 +28,12 @@ export const hackathonData = [
   },
   {
     id: 2,
-    title: "Web3 Buildathon",
-    organization: "Ethereum Foundation",
+    title: "InnovaAItion",
+    organization: "Intiutive",
     date: "December 2025",
-    track: "DeFi",
-    result: "2nd Place 🥈",
-    projectName: "BlockVault",
+    track: "Finance App",
+    result: "Participated",
+    projectName: "BizPilot",
     description: "Developed a truly decentralized and non-custodial crypto wallet with multi-sig security and social recovery mechanisms.",
     team: [
         "https://ui-avatars.com/api/?name=PA&background=1a1a1a&color=fff",
@@ -41,25 +41,6 @@ export const hackathonData = [
     ],
     images: [
         "https://images.unsplash.com/photo-1621504450181-5d356f153343?auto=format&fit=crop&w=300&q=80"
-    ]
-  },
-  {
-    id: 3,
-    title: "HackTheNorth",
-    organization: "University of Waterloo",
-    date: "September 2025",
-    track: "FinTech",
-    result: "Top 10 Finalist",
-    projectName: "SpendSmart",
-    description: "A machine learning-powered personal finance dashboard that predicts future expenses based on user spending habits.",
-    team: [
-        "https://ui-avatars.com/api/?name=PA&background=1a1a1a&color=fff",
-        "https://ui-avatars.com/api/?name=AB&background=1a1a1a&color=fff",
-        "https://ui-avatars.com/api/?name=CD&background=1a1a1a&color=fff"
-    ],
-    images: [
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=300&q=80",
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=300&q=80"
     ]
   }
 ];
