@@ -1,58 +1,29 @@
-import React, { useRef, useState } from 'react'
-import gsap from 'gsap'
+import React, { useRef, useState, useEffect } from 'react'
 import './navbar.css'
 
 const Navbar = () => {
-  const navbarRef = useRef(null);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      // Hide if scrolling down and deeply past the hero banner. Show if scrolling up.
+      if (currentScrollY > lastScrollY.current && currentScrollY > 150) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleMenu = () => {
     setIsMobileOpen(!isMobileOpen);
-  };
-
-  const handleMouseEnter = () => {
-    if (window.innerWidth <= 900) return;
-    const navbar = navbarRef.current;
-    if (!navbar) return;
-    const texts = navbar.querySelectorAll('.t');
-
-    // Show all texts with stagger
-    gsap.set(texts, { display: 'block' });
-    gsap.fromTo(texts,
-      { opacity: 0, x: -14 },
-      { opacity: 1, x: 0, duration: 0.35, ease: 'power3.out', stagger: 0.06 }
-    );
-
-    // Animate the navbar border to gold
-    gsap.to(navbar, {
-      borderColor: 'rgba(255, 226, 38, 0.6)',
-      duration: 0.3,
-      ease: 'power2.out'
-    });
-  };
-
-  const handleMouseLeave = () => {
-    if (window.innerWidth <= 900) return;
-    const navbar = navbarRef.current;
-    if (!navbar) return;
-    const texts = navbar.querySelectorAll('.t');
-
-    // Hide all texts
-    gsap.to(texts, {
-      opacity: 0,
-      x: -8,
-      duration: 0.25,
-      ease: 'power2.in',
-      stagger: 0.04,
-      onComplete: () => gsap.set(texts, { display: 'none' })
-    });
-
-    // Animate navbar border back to transparent
-    gsap.to(navbar, {
-      borderColor: 'rgba(255, 255, 255, 0.196)',
-      duration: 0.3,
-      ease: 'power2.in'
-    });
   };
 
   const handleClick = (sectionId) => {
@@ -64,29 +35,23 @@ const Navbar = () => {
   };
 
   const items = [
-    { icon: 'ri-home-line',         label: 'Home',         sectionId: 'home' },
-    { icon: 'ri-user-line',          label: 'About Me',     sectionId: 'about' },
-    { icon: 'ri-sparkling-fill',      label: 'Skills',       sectionId: 'skills' },
-    { icon: 'ri-code-s-slash-line',  label: 'Projects',     sectionId: 'projects' },
-    { icon: 'ri-certificate-2-line', label: 'Certificates', sectionId: 'certificates' },
-    { icon: 'ri-mail-line',          label: 'Contact Me',   sectionId: 'contact' },
+    { label: 'Home',         sectionId: 'home' },
+    { label: 'About',        sectionId: 'about' },
+    { label: 'Skills',       sectionId: 'skills' },
+    { label: 'Projects',     sectionId: 'projects' },
+    { label: 'Certificates', sectionId: 'certificates' },
+    { label: 'Contact',      sectionId: 'contact' },
   ];
 
   return (
     <>
-      <div className="hamburger-icon" onClick={toggleMenu}>
+      <div className={`hamburger-icon ${isVisible ? '' : 'hidden'}`} onClick={toggleMenu}>
         <i className={isMobileOpen ? 'ri-close-line' : 'ri-menu-line'}></i>
       </div>
-      <div
-        className={`navbar ${isMobileOpen ? 'mobile-open' : ''}`}
-        ref={navbarRef}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
+      <div className={`navbar ${isMobileOpen ? 'mobile-open' : ''} ${isVisible ? '' : 'nav-hidden'}`}>
         <ul className='list_ul'>
           {items.map((item) => (
             <li key={item.label} className='list_li' onClick={() => handleClick(item.sectionId)}>
-              <i className={item.icon}></i>
               <span className="t">{item.label}</span>
             </li>
           ))}

@@ -1,103 +1,123 @@
-.navbar{
-    padding: 20px;
-
-    position: fixed;
-    top: 20%;
-    left: 0%;
-
-    color: white;
-    font-weight: 600;
-
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    
-    /* border: 0.5px solid #ffffff32; */
-
-    z-index: 10;
-
-    background-color: rgba(0, 0, 0, 0);
-
-    backdrop-filter: blur(10px);
+.navbar {
+  position: fixed;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 30px;
+  background: rgba(15, 15, 15, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
 }
 
-i{
-    color: #FFE226;
-
-    font-size: 30px;
+.nav-hidden {
+  transform: translate(-50%, -150%);
+  opacity: 0;
+  pointer-events: none;
 }
 
-.navbar .list_ul{
-    list-style: none;
-    display: flex;
-    align-items: start;
-    flex-direction: column;
-    gap: 60px;
-    padding: 0;
+.navbar .list_ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 35px;
+  padding: 0;
+  margin: 0;
 }
 
-.list_li{
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
+.list_li {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
-.t{
-    display: none;
-    opacity: 0;
-    white-space: nowrap;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
+.t {
+  display: block;
+  opacity: 1;
+  color: #b0b0b0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.list_li:hover .t {
+  color: #FFE226;
+  text-shadow: 0 0 12px rgba(255, 226, 38, 0.25);
 }
 
 .hamburger-icon {
-    display: none;
+  display: none;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+}
+
+.hamburger-icon.hidden {
+  transform: translateY(-150%);
+  opacity: 0;
+  pointer-events: none;
 }
 
 @media (max-width: 900px) {
-    .hamburger-icon {
-        display: block;
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 1000;
-        cursor: pointer;
-        padding: 10px;
-        background: rgba(0, 0, 0, 0.5);
-        border-radius: 8px;
-        backdrop-filter: blur(10px);
-    }
-    
-    .hamburger-icon i {
-        font-size: 30px;
-        color: #FFE226;
-    }
+  .hamburger-icon {
+    display: block;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    cursor: pointer;
+    padding: 12px;
+    background: rgba(15, 15, 15, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  
+  .hamburger-icon i {
+    font-size: 26px;
+    color: #FFE226;
+  }
 
-    .navbar {
-        top: 0;
-        left: -100%;
-        height: 100vh;
-        width: 250px;
-        border-radius: 0;
-        background-color: rgba(0, 0, 0, 0.95) !important;
-        transition: left 0.3s ease;
-        padding-top: 80px;
-        border: none !important;
-    }
-    
-    .navbar.mobile-open {
-        left: 0;
-    }
-    
-    .t {
-        display: block !important;
-        opacity: 1 !important;
-        font-size: 1.1rem;
-    }
-    
-    .navbar .list_ul {
-        gap: 35px;
-        padding-left: 20px;
-        align-items: flex-start;
-    }
+  .navbar {
+    top: 0;
+    left: 0;
+    transform: translateX(0);
+    width: 280px;
+    height: 100vh;
+    border-radius: 0;
+    background: rgba(10, 10, 10, 0.95);
+    border: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 120px;
+    left: -100%;
+    transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  
+  .navbar.mobile-open {
+    left: 0;
+  }
+  
+  .navbar .list_ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 35px;
+    padding-left: 40px;
+  }
+
+  .t {
+    font-size: 1.25rem;
+  }
 }
