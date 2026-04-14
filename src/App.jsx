@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
+import Lenis from 'lenis';
 import './App.css'
 
 import SkillsSection from "./components/SkillsSection.jsx"
@@ -51,7 +52,22 @@ function App() {
   const [para,setPara] = useState(words);
   
   useEffect(() => {
-    // Description splitting is now handled in useGSAP
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+    });
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      lenis.destroy();
+    };
   }, []);
 
   useGSAP(() => {
@@ -227,7 +243,7 @@ function App() {
           trigger: "#about",
           start: "center center",
           end: "+=1000", // scroll distance
-          scrub: true,
+          scrub: 1,
           pin: true,
         },
         onUpdate: function () {
