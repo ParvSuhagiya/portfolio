@@ -35,7 +35,7 @@
   letter-spacing: -1.5px;
 }
 
-.ct-title-accent .word{
+.ct-title-accent .word {
   background: linear-gradient(135deg, #ffd700, #ffed4e, #e6a800);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -90,14 +90,14 @@
   align-items: center;
   gap: 14px;
   padding: 16px 20px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,215,0,0.12);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 215, 0, 0.12);
   border-radius: 14px;
   transition: border-color 0.3s ease;
 }
 
 .ct-info-card:hover {
-  border-color: rgba(255,215,0,0.35);
+  border-color: rgba(255, 215, 0, 0.35);
 }
 
 .ct-info-icon {
@@ -150,8 +150,8 @@
 .ct-textarea {
   width: 100%;
   padding: 14px 18px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,215,0,0.12);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 215, 0, 0.12);
   border-radius: 12px;
   color: #fff;
   font-size: 0.95rem;
@@ -169,8 +169,8 @@
 
 .ct-input:focus,
 .ct-textarea:focus {
-  border-color: rgba(255,215,0,0.5);
-  box-shadow: 0 0 0 3px rgba(255,215,0,0.06);
+  border-color: rgba(255, 215, 0, 0.5);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.06);
 }
 
 .ct-textarea {
@@ -195,12 +195,12 @@
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: box-shadow 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 0 24px rgba(255,215,0,0.2);
+  box-shadow: 0 0 24px rgba(255, 215, 0, 0.2);
   align-self: flex-start;
 }
 
 .ct-submit:hover {
-  box-shadow: 0 0 40px rgba(255,215,0,0.4);
+  box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
   transform: translateY(-2px);
 }
 
@@ -230,7 +230,7 @@
 .ct-div-line {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
 }
 
 .ct-div-text {
@@ -253,8 +253,8 @@
   width: 48px;
   height: 48px;
   border-radius: 14px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,215,0,0.12);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 215, 0, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -265,10 +265,10 @@
 
 .ct-social-link:hover {
   color: #ffd700;
-  border-color: rgba(255,215,0,0.4);
-  background: rgba(255,215,0,0.06);
+  border-color: rgba(255, 215, 0, 0.4);
+  background: rgba(255, 215, 0, 0.06);
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(255,215,0,0.1);
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.1);
 }
 
 .ct-social-link svg {
@@ -282,7 +282,7 @@
 .ct-footer {
   text-align: center;
   padding: 28px 0;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .ct-footer-text {
@@ -296,7 +296,9 @@
    Responsive
    ============================================= */
 @media (max-width: 768px) {
-  .ct-root { padding: 80px 16px 0; }
+  .ct-root {
+    padding: 80px 16px 0;
+  }
 
   .ct-layout {
     grid-template-columns: 1fr;

@@ -22,8 +22,9 @@ export const hackathonData = [
         "https://ui-avatars.com/api/?name=JS&background=1a1a1a&color=fff"
     ],
     images: [
-        "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=300&q=80",
-        "https://images.unsplash.com/photo-1555949963-aa79dcee57d5?auto=format&fit=crop&w=300&q=80"
+        "https://res.cloudinary.com/dotryksrv/image/upload/q_auto/f_auto/v1776338682/WhatsApp_Image_2026-04-15_at_5.06.46_PM_pos5mq.jpg",
+        "https://res.cloudinary.com/dotryksrv/image/upload/q_auto/f_auto/v1776338935/c3c667bd-d55b-4482-a12c-9094fa5ec6d3_f1txrs.jpg",
+        "https://res.cloudinary.com/dotryksrv/image/upload/q_auto/f_auto/v1776338934/0e6d9ebb-c21a-4300-b9a4-e359a9acab80_mxbpnw.jpg"
     ]
   },
   {
@@ -40,7 +41,9 @@ export const hackathonData = [
         "https://ui-avatars.com/api/?name=JD&background=1a1a1a&color=fff"
     ],
     images: [
-        "https://images.unsplash.com/photo-1621504450181-5d356f153343?auto=format&fit=crop&w=300&q=80"
+        "https://res.cloudinary.com/dotryksrv/image/upload/q_auto/f_auto/v1776338682/70a155a1-e2cb-4584-98a2-c4afdce01bb1_xoxery.jpg",
+        "https://res.cloudinary.com/dotryksrv/image/upload/q_auto/f_auto/v1776338682/WhatsApp_Image_2026-01-17_at_5.31.13_PM_vbecur.jpg",
+        "https://res.cloudinary.com/dotryksrv/image/upload/q_auto/f_auto/v1776338786/a23257f8-b554-4ba2-a8db-6e458cf4169e_fwkbuw.jpg"
     ]
   }
 ];
