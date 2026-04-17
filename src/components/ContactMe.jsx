@@ -1,6 +1,7 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import emailjs from '@emailjs/browser';
 import './ContactMe.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -101,6 +102,7 @@ const ContactMe = () => {
   const formRef = useRef(null);
   const illusRef = useRef(null);
   const socialsRef = useRef(null);
+  const [status, setStatus] = useState(''); // 'sending', 'success', 'error'
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -146,16 +148,35 @@ const ContactMe = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Placeholder — wire up to your backend/email service
-    const btn = e.target.querySelector('.ct-submit');
-    gsap.to(btn, {
-      scale: 0.95, duration: 0.1, ease: 'power2.in',
-      onComplete: () => {
-        gsap.to(btn, { scale: 1, duration: 0.3, ease: 'back.out(2)' });
-      }
-    });
+    setStatus('sending');
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!publicKey || publicKey === 'your_public_key_here') {
+      setStatus('error');
+      return;
+    }
+
+    const formData = new FormData(e.target);
+    const data = {
+      from_name: formData.get('name'),
+      from_email: formData.get('email'),
+      subject: formData.get('subject'),
+      message: formData.get('message'),
+    };
+
+    try {
+      await emailjs.send(serviceId, templateId, data, publicKey);
+      setStatus('success');
+      e.target.reset();
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      setStatus('error');
+    }
   };
 
   return (
@@ -203,27 +224,29 @@ const ContactMe = () => {
           <form className="ct-form" ref={formRef} onSubmit={handleSubmit}>
             <div className="ct-field">
               <label className="ct-label" htmlFor="ct-name">Your Name</label>
-              <input className="ct-input" id="ct-name" type="text" placeholder="name" required />
+              <input className="ct-input" id="ct-name" name="name" type="text" placeholder="name" required />
             </div>
             <div className="ct-field">
               <label className="ct-label" htmlFor="ct-email">Email Address</label>
-              <input className="ct-input" id="ct-email" type="email" placeholder="name@example.com" required />
+              <input className="ct-input" id="ct-email" name="email" type="email" placeholder="name@example.com" required />
             </div>
             <div className="ct-field">
               <label className="ct-label" htmlFor="ct-subject">Subject</label>
-              <input className="ct-input" id="ct-subject" type="text" placeholder="Project Collaboration" />
+              <input className="ct-input" id="ct-subject" name="subject" type="text" placeholder="Project Collaboration" />
             </div>
             <div className="ct-field">
               <label className="ct-label" htmlFor="ct-message">Message</label>
-              <textarea className="ct-textarea" id="ct-message" placeholder="Tell me about your project..." rows="5" required></textarea>
+              <textarea className="ct-textarea" id="ct-message" name="message" placeholder="Tell me about your project..." rows="5" required></textarea>
             </div>
-            <button type="submit" className="ct-submit">
-              <span>Send Message</span>
+            <button type="submit" className="ct-submit" disabled={status === 'sending' || !import.meta.env.VITE_EMAILJS_PUBLIC_KEY || import.meta.env.VITE_EMAILJS_PUBLIC_KEY === 'your_public_key_here'}>
+              <span>{status === 'sending' ? 'Sending...' : (!import.meta.env.VITE_EMAILJS_PUBLIC_KEY || import.meta.env.VITE_EMAILJS_PUBLIC_KEY === 'your_public_key_here') ? 'Email Not Configured' : 'Send Message'}</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ct-send-icon">
                 <line x1="22" y1="2" x2="11" y2="13" />
                 <polygon points="22 2 15 22 11 13 2 9 22 2" />
               </svg>
             </button>
+            {status === 'success' && <p className="ct-status success">Message sent successfully!</p>}
+            {status === 'error' && <p className="ct-status error">{!import.meta.env.VITE_EMAILJS_PUBLIC_KEY || import.meta.env.VITE_EMAILJS_PUBLIC_KEY === 'your_public_key_here' ? 'Email service not configured. Please contact me directly at parv.suhagiya.cg@gmail.com' : 'Failed to send message. Please try again.'}</p>}
           </form>
         </div>
 

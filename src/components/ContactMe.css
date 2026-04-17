@@ -213,6 +213,22 @@
   height: 18px;
 }
 
+/* Status messages */
+.ct-status {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.ct-status.success {
+  color: #4caf50;
+}
+
+.ct-status.error {
+  color: #f44336;
+}
+
 /* =============================================
    Social Links
    ============================================= */
