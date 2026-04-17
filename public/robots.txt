@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://parvsuhagiya.vercel.app/sitemap.xml
+Sitemap: https://parv-suhagiya-portfolio.netlify.app/sitemap.xml
 
 # Crawl-delay (optional, for polite crawling)
 Crawl-delay: 10
