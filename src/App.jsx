@@ -20,15 +20,15 @@ import { useScrollSpy } from "./hooks/useScrollSpy.js"
 
 /* ── Per-section page titles & URL hashes ── */
 const SECTIONS = [
-  { id: 'home',           hash: '#home',          title: 'Parv Suhagiya | Full Stack Developer | Portfolio' },
-  { id: 'about',          hash: '#about',         title: 'About Parv Suhagiya | Full Stack Developer' },
-  { id: 'contributions',  hash: '#contributions', title: 'Parv Suhagiya | GitHub Contributions' },
-  { id: 'skills',         hash: '#skills',        title: 'Parv Suhagiya | Skills & Technologies' },
-  { id: 'projects',       hash: '#projects',      title: 'Parv Suhagiya | Projects | Full Stack Developer' },
-  { id: 'timeline',       hash: '#timeline',      title: 'Parv Suhagiya | Experience & Hackathons' },
-  { id: 'certificates',   hash: '#certificates',  title: 'Parv Suhagiya | Certifications & Achievements' },
-  { id: 'figma-designs',  hash: '#figma-designs', title: 'Parv Suhagiya | Figma Design Work' },
-  { id: 'contact',        hash: '#contact',       title: 'Contact Parv Suhagiya | Full Stack Developer' },
+  { id: 'home',           hash: '/#home',          title: 'Parv Suhagiya | Full Stack Developer | Portfolio' },
+  { id: 'about',          hash: '/#about',         title: 'About Parv Suhagiya | Full Stack Developer' },
+  { id: 'contributions',  hash: '/#contributions', title: 'Parv Suhagiya | GitHub Contributions' },
+  { id: 'skills',         hash: '/#skills',        title: 'Parv Suhagiya | Skills & Technologies' },
+  { id: 'projects',       hash: '/#projects',      title: 'Parv Suhagiya | Projects | Full Stack Developer' },
+  { id: 'timeline',       hash: '/#timeline',      title: 'Parv Suhagiya | Experience & Hackathons' },
+  { id: 'certificates',   hash: '/#certificates',  title: 'Parv Suhagiya | Certifications & Achievements' },
+  { id: 'figma-designs',  hash: '/#figma-designs', title: 'Parv Suhagiya | Figma Design Work' },
+  { id: 'contact',        hash: '/#contact',       title: 'Contact Parv Suhagiya | Full Stack Developer' },
 ];
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -43,6 +43,18 @@ function App() {
 
   /* Dynamic title + hash on scroll */
   useScrollSpy(SECTIONS);
+
+  /* Scroll to section on initial load if hash is present */
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const sectionId = hash.replace('#', '');
+      const el = document.getElementById(sectionId);
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 100);
+      }
+    }
+  }, []);
 
   const buttonChars = "View My Work".split('');
   const resumeChars = "RESUME".split('');

@@ -2,14 +2,14 @@ import React, { useRef, useState, useEffect } from 'react'
 import './navbar.css'
 
 const NAV_ITEMS = [
-  { label: 'Home',          sectionId: 'home',          hash: '#home' },
-  { label: 'About',         sectionId: 'about',         hash: '#about' },
-  { label: 'Skills',        sectionId: 'skills',        hash: '#skills' },
-  { label: 'Projects',      sectionId: 'projects',      hash: '#projects' },
-  { label: 'Timeline',      sectionId: 'timeline',      hash: '#timeline' },
-  { label: 'Certificates',  sectionId: 'certificates',  hash: '#certificates' },
-  { label: 'Designs',       sectionId: 'figma-designs', hash: '#figma-designs' },
-  { label: 'Contact',       sectionId: 'contact',       hash: '#contact' },
+  { label: 'Home',          sectionId: 'home',          hash: '/#home' },
+  { label: 'About',         sectionId: 'about',         hash: '/#about' },
+  { label: 'Skills',        sectionId: 'skills',        hash: '/#skills' },
+  { label: 'Projects',      sectionId: 'projects',      hash: '/#projects' },
+  { label: 'Timeline',      sectionId: 'timeline',      hash: '/#timeline' },
+  { label: 'Certificates',  sectionId: 'certificates',  hash: '/#certificates' },
+  { label: 'Designs',       sectionId: 'figma-designs', hash: '/#figma-designs' },
+  { label: 'Contact',       sectionId: 'contact',       hash: '/#contact' },
 ];
 
 const Navbar = () => {
@@ -42,10 +42,11 @@ const Navbar = () => {
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
-  const handleClick = (sectionId) => {
+  const handleClick = (sectionId, hash) => {
     const el = document.getElementById(sectionId);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
     setActiveId(sectionId);
+    window.history.replaceState(null, '', hash);
     if (window.innerWidth <= 900) setIsMobileOpen(false);
   };
 
@@ -78,7 +79,7 @@ const Navbar = () => {
             <li
               key={label}
               className={`list_li${activeId === sectionId ? ' nav-active' : ''}`}
-              onClick={() => handleClick(sectionId)}
+              onClick={() => handleClick(sectionId, hash)}
             >
               <a
                 href={hash}
