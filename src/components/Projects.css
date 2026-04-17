@@ -459,11 +459,29 @@
   height: 18px;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .proj-root { padding: 80px 16px 100px; }
   .proj-grid { grid-template-columns: 1fr; }
-  .proj-modal-media { height: 300px; }
-  .proj-modal-content { padding: 24px; }
-  .proj-modal-title { font-size: 1.5rem; }
+  .proj-modal-media { height: 260px; }
+  .proj-modal-content { padding: 20px 16px 28px; }
+  .proj-modal-title { font-size: clamp(1.2rem, 5vw, 1.5rem); }
+  .proj-header { margin-bottom: 44px; }
+
+  .proj-filter-btn {
+    padding: 7px 16px;
+    font-size: 0.78rem;
+  }
 }
+
+@media (max-width: 480px) {
+  .proj-overlay { padding: 0; }
+  .proj-modal {
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  .proj-modal-media { height: 200px; }
+  .proj-modal-links { flex-direction: column; gap: 10px; }
+  .proj-btn-github,
+  .proj-btn-demo { width: 100%; justify-content: center; }
+}
+

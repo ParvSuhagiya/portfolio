@@ -316,12 +316,35 @@
   .ct-submit {
     align-self: stretch;
   }
+
+  .ct-title {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+  }
+
+  .ct-subtitle {
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 480px) {
   .ct-social-link {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
     border-radius: 12px;
+  }
+
+  .ct-social-links {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .ct-info-value {
+    font-size: 0.85rem;
+  }
+
+  .ct-input,
+  .ct-textarea {
+    font-size: 0.9rem;
+    padding: 12px 14px;
   }
 }

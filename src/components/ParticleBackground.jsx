@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
 
-const PARTICLE_COUNT = 150;
-const SIZES  = [1, 1, 1.5, 2, 2, 3];   // weighted — more small than big
+const PARTICLE_COUNT_DESKTOP = 100;
+const PARTICLE_COUNT_MOBILE  = 50;   // half on small screens
+const SIZES  = [1, 1, 1.5, 2, 2, 3];  // weighted — more small than big
 const rand   = (min, max) => Math.random() * (max - min) + min;
 
 const ParticleBackground = () => {
@@ -10,15 +11,19 @@ const ParticleBackground = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx    = canvas.getContext('2d');
-    const dpr    = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr    = Math.min(window.devicePixelRatio || 1, 1.5);
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    const PARTICLE_COUNT = isMobile ? PARTICLE_COUNT_MOBILE : PARTICLE_COUNT_DESKTOP;
     let W, H, particles, rafId;
-    let mouse = { x: -1000, y: -1000 };
+    let mouse = { x: -9999, y: -9999 };
 
     const onMouseMove = (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+      if (!isMobile) {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      }
     };
-    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
 
     function resize() {
       W = window.innerWidth;
@@ -68,19 +73,17 @@ const ParticleBackground = () => {
         p.x  += p.vx + Math.sin(p.wobbleOff) * p.wobbleAmp;
         p.y  += p.vy;
 
-        // Optimized Reactive Mouse Repulsion 
+        // Optimized reactive mouse repulsion (smaller radius = less sqrt calls)
         const dx = mouse.x - p.x;
         const dy = mouse.y - p.y;
-        
-        // Skip heavy square roots if completely out of bounds (using cheaper square compare)
         const distSq = dx * dx + dy * dy;
-        const maxDistSq = 180 * 180; 
+        const maxDistSq = 120 * 120;
 
         if (distSq < maxDistSq) {
           const dist = Math.sqrt(distSq);
-          const force = (180 - dist) / 180;
-          p.x -= (dx / dist) * force * 2.5;
-          p.y -= (dy / dist) * force * 2.5;
+          const force = (120 - dist) / 120;
+          p.x -= (dx / dist) * force * 2;
+          p.y -= (dy / dist) * force * 2;
         }
 
         // Spin
@@ -143,6 +146,7 @@ const ParticleBackground = () => {
         width: '100vw', height: '100vh',
         zIndex: 0,
         pointerEvents: 'none',
+        willChange: 'transform',
       }}
     />
   );

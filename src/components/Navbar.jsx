@@ -51,6 +51,15 @@ const Navbar = () => {
 
   return (
     <>
+      {/* Mobile backdrop — tap-outside to close */}
+      {isMobileOpen && (
+        <div
+          className="nav-backdrop"
+          onClick={() => setIsMobileOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       <div
         className={`hamburger-icon ${isVisible ? '' : 'hidden'}`}
         onClick={() => setIsMobileOpen(v => !v)}
@@ -71,7 +80,6 @@ const Navbar = () => {
               className={`list_li${activeId === sectionId ? ' nav-active' : ''}`}
               onClick={() => handleClick(sectionId)}
             >
-              {/* semantic anchor for SEO crawlers */}
               <a
                 href={hash}
                 className="t"

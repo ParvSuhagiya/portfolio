@@ -1,8 +1,7 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect } from 'react'
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import SplitType from 'split-type';
 import Lenis from 'lenis';
 import './App.css'
 
@@ -48,33 +47,18 @@ function App() {
   const buttonChars = "View My Work".split('');
   const resumeChars = "RESUME".split('');
   const chars = "PARV'S PORTFOLIO".split('');
-  const descSplitDone = useRef(false);
 
-  function description_split() {
-    if (descSplitDone.current) return; // Only run once
-    const desc = descRef.current;
-    if (!desc) return; // Safety check
-    const letters = desc.innerText.split('');
-    let span_arr = '';
-    letters.forEach(element => {
-      span_arr += `<span class="desc-letter">${element === ' ' ? '&nbsp;' : element}</span>`;
-    });
-    desc.innerHTML = span_arr;
-    descSplitDone.current = true; // Mark as done
-  }
-
-  let text = "I’m a passionate Full Stack Developer who enjoys building modern, scalable web applications. I work across both frontend and backend, creating seamless user experiences and efficient server-side logic. I love turning ideas into real-world products and continuously improving my skills with new technologies."
-  let words = text.split(" ");
-
+  const text = "I'm a passionate Full Stack Developer who enjoys building modern, scalable web applications. I work across both frontend and backend, creating seamless user experiences and efficient server-side logic. I love turning ideas into real-world products and continuously improving my skills with new technologies."
+  const words = text.split(" ");
 
   const importantWords = ["Full", "Stack", "Developer", "modern,", "scalable", "frontend", "backend,", "seamless", "efficient", "server-side", "real-world", "technologies."];
 
-  const [para, setPara] = useState(words);
-
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      wheelMultiplier: 0.9,
     });
 
     lenis.on('scroll', ScrollTrigger.update);
@@ -91,35 +75,29 @@ function App() {
   }, []);
 
   useGSAP(() => {
-    // Apply important class to highlighted words using your DOM approach
+    // Apply important class to highlighted words
     gsap.utils.toArray('.about-word').forEach((e) => {
       if (importantWords.includes(e.textContent.trim())) {
         e.id = "important";
       }
     });
 
-    // Split description text first
-    description_split();
-
-    // Intro animation with stagger effect
+    // Intro animation — char level is fine here (short text, runs once)
     gsap.fromTo(
       '.intro-text .char',
+      { y: 80, opacity: 0 },
       {
-        y: 100,
-        scale: 0.97
-      },
-      {
-        y: 15,
-        scale: 1,
-        duration: 0.8,
+        y: 0,
+        opacity: 1,
+        duration: 0.7,
         ease: "expo.out",
-        stagger: 0.03
+        stagger: 0.04
       }
     );
 
-    // Apply exact user requested animation to all other text
+    // ── Lightweight scroll-reveal for section headings & paragraphs ──
+    // Use LINE-level reveals (not char-level) to keep GPU happy.
     const genericTexts = gsap.utils.toArray('h2, h3, h4, h5, h6, p').filter((el) => {
-      // Avoid breaking specific pre-animated blocks, intro, hero texts, or complex SVG/Link nests
       if (
         el.closest('.intro-container') ||
         el.closest('.hero-content') ||
@@ -129,129 +107,64 @@ function App() {
         el.classList.contains('cert-eyebrow') ||
         el.querySelector('svg') ||
         el.querySelector('a')
-      ) {
-        return false;
-      }
+      ) return false;
       return el.innerText.trim().length > 0;
     });
 
     genericTexts.forEach((el) => {
-      // Give overflow hide to all parent containers as requested
-      el.style.overflow = "hidden";
-      // adding padding bottom so characters aren't clipped initially if there's no margin
-      // but let's just apply the pure user request
-
-      const split = new SplitType(el, { types: 'lines, words, chars' });
-
-      // We also ensure word level overflow hidden for tighter mask reveals
-      // but applying it to parent handles most cases smoothly.
-
-      if (split.chars && split.chars.length > 0) {
-        gsap.fromTo(
-          split.chars,
-          {
-            y: 100,
-            scale: 0.97
-          },
-          {
-            y: 15, // exactly as requested
-            scale: 1,
-            duration: 0.8,
-            ease: "expo.out",
-            stagger: 0.03,
-            scrollTrigger: {
-              trigger: el,
-              start: "top 90%",
-              once: true
-            }
+      // Simple, GPU-friendly fade+rise on the whole element — no SplitType needed
+      gsap.fromTo(
+        el,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.65,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 92%",
+            once: true,
           }
-        );
-      }
+        }
+      );
     });
-
 
     // Remove intro after animation
     gsap.to(introRef.current, {
-      delay: 3,
-      duration: 1,
+      delay: 2.8,
+      duration: 0.8,
       opacity: 0,
       pointerEvents: "none"
     });
 
-    // Hero section animations - triggered after intro disappears
+    // Hero section animations
     gsap.fromTo(
       photoRef.current,
-      {
-        opacity: 0,
-        x: -100
-      },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        ease: "power3.out",
-        delay: 4
-      }
+      { opacity: 0, x: -80 },
+      { opacity: 1, x: 0, duration: 0.9, ease: "power3.out", delay: 3.5 }
     );
 
     gsap.fromTo(
       nameRef.current,
-      {
-        opacity: 0,
-        x: 100
-      },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        ease: "power3.out",
-        delay: 4.3
-      }
+      { opacity: 0, x: 80 },
+      { opacity: 1, x: 0, duration: 0.9, ease: "power3.out", delay: 3.7 }
     );
 
     gsap.fromTo(
       descRef.current,
-      {
-        opacity: 0,
-        x: 100
-      },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        ease: "power3.out",
-        delay: 4.6
-      }
+      { opacity: 0, x: 80 },
+      { opacity: 1, x: 0, duration: 0.9, ease: "power3.out", delay: 3.9 }
     );
 
-    gsap.to('.hero-description .desc-letter', {
-      duration: 0.5,
-      scale: 1.05,
-      stagger: 0.1,
-      ease: "power1.inOut",
-      yoyo: true,
-      repeat: -1,
-      delay: 5.5 // Give time for the slide-in animation to complete
-    });
-
-    // Button container animation first
+    // Button container
     gsap.fromTo(
       buttonRef.current,
-      {
-        opacity: 0,
-        y: 20
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "back.out",
-        delay: 4.9
-      }
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.7, ease: "back.out", delay: 4.1 }
     );
 
-    // about me text animation
-
+    // About Me word-reveal (scrub animation — no change needed here, it's smooth)
     gsap.fromTo(
       '.about-word',
       { opacity: 0.1 },
@@ -262,8 +175,8 @@ function App() {
         scrollTrigger: {
           trigger: "#about",
           start: "center center",
-          end: "+=1000", // scroll distance
-          scrub: 1,
+          end: "+=1000",
+          scrub: 0.6,
           pin: true,
         },
         onUpdate: function () {
@@ -320,7 +233,7 @@ function App() {
                   </span>
                 ))}
               </a>
-              <a href="/resume.pdf" download="Parv_Suhagiya_Resume.pdf" className="cta-button">
+              <a href="https://drive.google.com/file/d/1MmKPgIpUA8sOYCoDKz-P0YHGp0iLQYZL/view?usp=drive_open" target='_blank' className="cta-button">
                 {resumeChars.map((char, i) => (
                   <span key={i} className="button-char">
                     {char === ' ' ? '\u00A0' : char}
@@ -334,7 +247,7 @@ function App() {
       </section>
 
       <div className="main-content">
-        <AboutMe words={para} />
+        <AboutMe words={words} />
         <GitHubContributions />
         <SkillsSection />
         <Projects />

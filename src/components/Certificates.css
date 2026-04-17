@@ -268,11 +268,22 @@
   letter-spacing: 1px;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .cert-root { padding: 80px 16px 100px; }
   .cert-grid { grid-template-columns: 1fr; }
   .cert-modal-img { height: 200px; }
-  .cert-modal-content { padding: 24px; }
-  .cert-modal-title { font-size: 1.5rem; }
+  .cert-modal-content { padding: 20px 16px 28px; }
+  .cert-modal-title { font-size: clamp(1.2rem, 5vw, 1.5rem); }
+  .cert-header { margin-bottom: 44px; }
 }
+
+@media (max-width: 480px) {
+  .cert-overlay { padding: 0; }
+  .cert-modal {
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  .cert-modal-img { height: 160px; }
+  .cert-modal-desc { font-size: 0.9rem; }
+}
+

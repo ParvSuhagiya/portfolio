@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
  * Watches a list of section IDs with IntersectionObserver.
  * When a section enters view it:
  *  - Updates document.title with a section-specific title
- *  - Updates the URL hash (#section-id) without pushing to history
+ *  - Updates the URL path (/section-id) without pushing to history
  *
  * @param {Array<{id: string, title: string, hash: string}>} sections
  */
@@ -16,7 +16,7 @@ export function useScrollSpy(sections) {
 
     const observers = [];
 
-    sections.forEach(({ id, title, hash }) => {
+    sections.forEach(({ id, title }) => {
       const el = document.getElementById(id);
       if (!el) return;
 
@@ -29,16 +29,15 @@ export function useScrollSpy(sections) {
             // Update page title
             document.title = title;
 
-            // Update URL hash silently (no scroll, no history entry)
-            const url = hash
-              ? `${window.location.pathname}${hash}`
-              : window.location.pathname;
-            window.history.replaceState(null, '', url);
+            // Update URL path silently — no hash, no history push
+            // 'home' section → '/', all others → '/section-id'
+            const path = id === 'home' ? '/' : `/${id}`;
+            window.history.replaceState(null, '', path);
           }
         },
         {
-          threshold: 0.35,      // section must be 35 % visible
-          rootMargin: '-80px 0px -20% 0px', // account for fixed navbar height
+          threshold: 0.35,
+          rootMargin: '-80px 0px -20% 0px',
         }
       );
 

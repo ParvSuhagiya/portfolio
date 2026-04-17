@@ -207,7 +207,6 @@
   overflow: hidden;
 }
 
-/* ── Responsive ── */
 @media (max-width: 768px) {
   .fig-root {
     padding: 80px 16px 100px;
@@ -215,10 +214,14 @@
   .fig-grid {
     grid-template-columns: 1fr;
   }
+  .fig-header { margin-bottom: 44px; }
 }
 
 @media (max-width: 480px) {
   .fig-title {
-    font-size: 1.8rem;
+    font-size: clamp(1.5rem, 6vw, 1.9rem);
   }
+  .fig-card-name { font-size: 1rem; }
+  .fig-card-desc { font-size: 0.82rem; }
 }
+

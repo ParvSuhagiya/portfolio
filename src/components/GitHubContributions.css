@@ -303,7 +303,7 @@
   }
 
   .gh-title {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 6vw, 2rem);
   }
 
   .gh-header {
@@ -311,22 +311,51 @@
     align-items: flex-start;
   }
 
+  .gh-profile-link {
+    width: 100%;
+    justify-content: center;
+  }
+
   .gh-stat-num {
     font-size: 1.6rem;
+  }
+
+  .gh-chart-wrapper {
+    padding: 16px 12px 12px;
   }
 }
 
 @media (max-width: 480px) {
   .gh-title {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 
   .gh-stats {
-    gap: 12px;
+    gap: 10px;
   }
 
   .gh-stat-card {
-    min-width: 120px;
-    padding: 14px 16px;
+    min-width: 110px;
+    padding: 12px 14px;
+  }
+
+  .gh-stat-num {
+    font-size: 1.4rem;
+  }
+
+  .gh-stat-label {
+    font-size: 0.72rem;
   }
 }
+
+@media (max-width: 360px) {
+  .gh-stat-card {
+    min-width: 90px;
+    padding: 10px 10px;
+  }
+
+  .gh-stat-num {
+    font-size: 1.2rem;
+  }
+}
+

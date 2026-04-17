@@ -394,6 +394,15 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 14px;
   }
+
+  .sk-tabs {
+    gap: 6px;
+  }
+
+  .sk-tab {
+    padding: 8px 16px;
+    font-size: 0.75rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -409,10 +418,43 @@
   }
 
   .sk-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
 
   .sk-title {
     letter-spacing: -1px;
   }
+
+  .sk-tab {
+    padding: 7px 12px;
+    font-size: 0.7rem;
+  }
 }
+
+@media (max-width: 360px) {
+  .sk-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sk-card-name {
+    font-size: 0.9rem;
+  }
+
+  .sk-tabs {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+
+  .sk-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sk-tab {
+    flex-shrink: 0;
+  }
+}
+

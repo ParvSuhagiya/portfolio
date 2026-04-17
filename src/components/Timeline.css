@@ -424,3 +424,37 @@
 
   .tc-footer { flex-wrap: wrap; gap: 14px; }
 }
+
+@media (max-width: 480px) {
+  .timeline-section {
+    padding: 80px 12px 100px;
+  }
+
+  .timeline-left,
+  .timeline-right {
+    padding-left: 70px;
+    padding-right: 8px;
+  }
+
+  .timeline-line { left: 24px; }
+
+  .timeline-left  .timeline-node,
+  .timeline-right .timeline-node {
+    left: -1px;
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .tc-photo-track img { height: 75px; min-width: 100px; }
+
+  .tc-hackathon-name { font-size: 1.05rem; }
+
+  .tc-description { font-size: 0.85rem; }
+
+  .timeline-view-more {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
