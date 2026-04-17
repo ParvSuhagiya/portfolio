@@ -163,8 +163,9 @@ const ContactMe = () => {
 
     const formData = new FormData(e.target);
     const data = {
-      from_name: formData.get('name'),
-      from_email: formData.get('email'),
+      name: formData.get('name'),
+      email: formData.get('email'),
+      title: formData.get('subject'),
       subject: formData.get('subject'),
       message: formData.get('message'),
     };
