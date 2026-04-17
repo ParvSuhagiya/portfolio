@@ -1,0 +1,224 @@
+/* ====================================================
+   Figma Designs Section — mirrors Certificates styles
+   ==================================================== */
+
+.fig-root {
+  position: relative;
+  background: #000;
+  padding: 120px 24px 140px;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+.fig-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+/* ── Header ── */
+.fig-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.fig-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #ffd700;
+  margin: 0 0 14px;
+  text-transform: uppercase;
+}
+
+.fig-title {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -1.5px;
+}
+
+.fig-title-accent {
+  background: linear-gradient(135deg, #ffd700, #ffed4e, #e6a800);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.fig-title-accent .word {
+  background: linear-gradient(135deg, #ffd700, #ffed4e, #e6a800);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Grid ── */
+.fig-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+/* ── Card ── */
+.fig-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 215, 0, 0.12);
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+}
+
+.fig-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 215, 0, 0.4);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.08);
+}
+
+.fig-card:focus-visible {
+  border-color: rgba(255, 215, 0, 0.6);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.25);
+}
+
+/* Gold accent bar at top */
+.fig-card-accent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffd700, transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.fig-card:hover .fig-card-accent {
+  opacity: 1;
+}
+
+/* ── Card image area ── */
+.fig-card-img {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: #0a0a0a;
+  position: relative;
+}
+
+.fig-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.fig-card:hover .fig-card-img img {
+  transform: scale(1.05);
+}
+
+/* ── Link icon (shown on hover) ── */
+.fig-link-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.7);
+  width: 52px;
+  height: 52px;
+  background: rgba(0, 0, 0, 0.75);
+  border: 2px solid #ffd700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(6px);
+  z-index: 3;
+}
+
+.fig-link-icon svg {
+  width: 22px;
+  height: 22px;
+  color: #ffd700;
+}
+
+.fig-card:hover .fig-link-icon {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* dark overlay on img when hovered */
+.fig-card-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.fig-card:hover .fig-card-img::after {
+  opacity: 1;
+}
+
+/* ── Figma badge ── */
+.fig-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 42px;
+  z-index: 4;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+  opacity: 0.9;
+}
+
+/* ── Card body ── */
+.fig-card-body {
+  padding: 20px 24px 24px;
+}
+
+.fig-card-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 6px;
+  line-height: 1.4;
+}
+
+.fig-card-category {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #ffd700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.fig-card-desc {
+  font-size: 0.85rem;
+  color: #888;
+  line-height: 1.7;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .fig-root {
+    padding: 80px 16px 100px;
+  }
+  .fig-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .fig-title {
+    font-size: 1.8rem;
+  }
+}

@@ -15,6 +15,22 @@ import Projects from "./components/Projects.jsx"
 import Timeline from "./components/Timeline.jsx"
 import Certificates from "./components/Certificates.jsx"
 import ContactMe from "./components/ContactMe.jsx"
+import GitHubContributions from "./components/GitHubContributions.jsx"
+import FigmaDesigns from "./components/FigmaDesigns.jsx"
+import { useScrollSpy } from "./hooks/useScrollSpy.js"
+
+/* ── Per-section page titles & URL hashes ── */
+const SECTIONS = [
+  { id: 'home',           hash: '#home',          title: 'Parv Suhagiya | Full Stack Developer | Portfolio' },
+  { id: 'about',          hash: '#about',         title: 'About Parv Suhagiya | Full Stack Developer' },
+  { id: 'contributions',  hash: '#contributions', title: 'Parv Suhagiya | GitHub Contributions' },
+  { id: 'skills',         hash: '#skills',        title: 'Parv Suhagiya | Skills & Technologies' },
+  { id: 'projects',       hash: '#projects',      title: 'Parv Suhagiya | Projects | Full Stack Developer' },
+  { id: 'timeline',       hash: '#timeline',      title: 'Parv Suhagiya | Experience & Hackathons' },
+  { id: 'certificates',   hash: '#certificates',  title: 'Parv Suhagiya | Certifications & Achievements' },
+  { id: 'figma-designs',  hash: '#figma-designs', title: 'Parv Suhagiya | Figma Design Work' },
+  { id: 'contact',        hash: '#contact',       title: 'Contact Parv Suhagiya | Full Stack Developer' },
+];
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -25,12 +41,16 @@ function App() {
   const nameRef = useRef(null);
   const descRef = useRef(null);
   const buttonRef = useRef(null);
+
+  /* Dynamic title + hash on scroll */
+  useScrollSpy(SECTIONS);
+
   const buttonChars = "View My Work".split('');
   const resumeChars = "RESUME".split('');
   const chars = "PARV'S PORTFOLIO".split('');
   const descSplitDone = useRef(false);
 
-    function description_split(){
+  function description_split() {
     if (descSplitDone.current) return; // Only run once
     const desc = descRef.current;
     if (!desc) return; // Safety check
@@ -46,15 +66,15 @@ function App() {
   let text = "I’m a passionate Full Stack Developer who enjoys building modern, scalable web applications. I work across both frontend and backend, creating seamless user experiences and efficient server-side logic. I love turning ideas into real-world products and continuously improving my skills with new technologies."
   let words = text.split(" ");
 
-  
+
   const importantWords = ["Full", "Stack", "Developer", "modern,", "scalable", "frontend", "backend,", "seamless", "efficient", "server-side", "real-world", "technologies."];
-  
-  const [para,setPara] = useState(words);
-  
+
+  const [para, setPara] = useState(words);
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
 
     lenis.on('scroll', ScrollTrigger.update);
@@ -73,7 +93,7 @@ function App() {
   useGSAP(() => {
     // Apply important class to highlighted words using your DOM approach
     gsap.utils.toArray('.about-word').forEach((e) => {
-      if(importantWords.includes(e.textContent.trim())) {
+      if (importantWords.includes(e.textContent.trim())) {
         e.id = "important";
       }
     });
@@ -103,7 +123,7 @@ function App() {
       if (
         el.closest('.intro-container') ||
         el.closest('.hero-content') ||
-        el.closest('.aboutMe_root') || 
+        el.closest('.aboutMe_root') ||
         el.classList.contains('hero-description') ||
         el.classList.contains('proj-eyebrow') ||
         el.classList.contains('cert-eyebrow') ||
@@ -120,12 +140,12 @@ function App() {
       el.style.overflow = "hidden";
       // adding padding bottom so characters aren't clipped initially if there's no margin
       // but let's just apply the pure user request
-      
+
       const split = new SplitType(el, { types: 'lines, words, chars' });
-      
+
       // We also ensure word level overflow hidden for tighter mask reveals
       // but applying it to parent handles most cases smoothly.
-      
+
       if (split.chars && split.chars.length > 0) {
         gsap.fromTo(
           split.chars,
@@ -234,7 +254,7 @@ function App() {
 
     gsap.fromTo(
       '.about-word',
-      { opacity: 0.1},
+      { opacity: 0.1 },
       {
         opacity: 1,
         stagger: 0.2,
@@ -283,13 +303,13 @@ function App() {
           <div className="hero-photo" ref={photoRef}>
             <img src="https://res.cloudinary.com/dbouvoh2b/image/upload/v1772976227/profile_final_photo_hfdo45.jpg" alt="Profile" className="profile-img" />
           </div>
-          
+
           <div className="hero-content">
             <h1 className="hero-name" ref={nameRef}>
               Hi, I'm <span className="highlight">Parv</span>
             </h1>
             <p className="hero-description" ref={descRef}>
-              A passionate full-stack developer creating beautiful and functional web experiences. 
+              A passionate full-stack developer creating beautiful and functional web experiences.
               I specialize in React, GSAP animations, and modern web design. Let's build something amazing together!
             </p>
             <div className="hero-buttons" ref={buttonRef}>
@@ -307,7 +327,7 @@ function App() {
                   </span>
                 ))}
               </a>
-              
+
             </div>
           </div>
         </div>
@@ -315,10 +335,12 @@ function App() {
 
       <div className="main-content">
         <AboutMe words={para} />
+        <GitHubContributions />
         <SkillsSection />
         <Projects />
         <Timeline />
         <Certificates />
+        <FigmaDesigns />
         <ContactMe />
       </div>
     </>

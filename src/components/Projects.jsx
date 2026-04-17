@@ -1,14 +1,23 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Projects.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const FILTER_CATEGORIES = [
+  { key: 'all',       label: 'All' },
+  { key: 'frontend',  label: 'Frontend' },
+  { key: 'fullstack', label: 'Full Stack' },
+  { key: 'clone',     label: 'Clone' },
+  { key: 'games',     label: 'Games' },
+];
+
 const projectsData = [
   {
     title: 'KrishiSaathi: Empowering Indian Farmers with AI',
     category: 'MERN-Stack',
+    filterCategory: 'fullstack',
     tech: ['React', 'Node.js', 'MongoDB', 'Express' , 'tailwind', 'mongoose'],
     description: 'KrishiSaathi is a comprehensive digital platform designed to revolutionize agriculture in India by connecting farmers with cutting-edge technology, real-time market intelligence, and a supportive community.',
     image: '/images/projects/portfolio.png',
@@ -19,6 +28,7 @@ const projectsData = [
   {
     title: 'TimeCure AI-powered appointment sheduler',
     category: 'MERN-Stack',
+    filterCategory: 'fullstack',
     tech: ['React', 'Node.js', 'MongoDB', 'Express' , 'tailwind', 'mongoose'],
     description: 'AI-powered appointment scheduling system with no-show prediction, smart queue management, and seamless rescheduling.',
     image: '/images/projects/ecommerce.png',
@@ -29,6 +39,7 @@ const projectsData = [
   {
     title: 'Fleet-Flow Transport Management System',
     category: 'Full-Stack',
+    filterCategory: 'fullstack',
     tech: ['React', 'Node.js', 'MongoDB', 'Express' , 'tailwind', 'mongoose'],
     description: 'FleetFlow is an intelligent fleet management system designed to streamline logistics, monitor vehicle operations, and optimize costs through role-based dashboards and real-time insights. It features advanced modules for vehicle tracking, driver management, fuel monitoring, maintenance logging, and financial analytics — all wrapped in a modern glass',
     image: '/images/projects/taskmanager.png',
@@ -40,44 +51,72 @@ const projectsData = [
 
 const Projects = () => {
   const sectionRef = useRef(null);
-  const titleRef = useRef(null);
-  const cardRefs = useRef([]);
+  const titleRef  = useRef(null);
+  const cardRefs  = useRef([]);
   const [expandedIdx, setExpandedIdx] = useState(null);
+  const [activeFilter, setActiveFilter] = useState('all');
   const overlayRef = useRef(null);
-  const modalRef = useRef(null);
+  const modalRef   = useRef(null);
 
+  // Filtered list (derived)
+  const filtered = activeFilter === 'all'
+    ? projectsData
+    : projectsData.filter(p => p.filterCategory === activeFilter);
+
+  /* Title scroll animation */
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(titleRef.current,
         { opacity: 0, y: 50 },
-        {
-          opacity: 1, y: 0, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: titleRef.current, start: 'top 85%' }
-        }
+        { opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+          scrollTrigger: { trigger: titleRef.current, start: 'top 85%' } }
       );
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
+  /* Initial card stagger */
   useEffect(() => {
     const ctx = gsap.context(() => {
       cardRefs.current.filter(Boolean).forEach((card, i) => {
         gsap.fromTo(card,
           { opacity: 0, y: 50, scale: 0.95 },
-          {
-            opacity: 1, y: 0, scale: 1,
-            duration: 0.6, ease: 'power3.out',
+          { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'power3.out',
             delay: i * 0.1,
-            scrollTrigger: { trigger: card, start: 'top 90%' }
-          }
+            scrollTrigger: { trigger: card, start: 'top 90%' } }
         );
       });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
+  /* Re-animate cards whenever filter changes */
+  useEffect(() => {
+    const cards = cardRefs.current.filter(Boolean);
+    if (!cards.length) return;
+    gsap.fromTo(
+      cards,
+      { opacity: 0, y: 20, scale: 0.96 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: 'power3.out', stagger: 0.07 }
+    );
+  }, [activeFilter]);
+
+  const handleFilter = useCallback((key) => {
+    if (key === activeFilter) return;
+    // Fade out current cards, then switch filter
+    const cards = cardRefs.current.filter(Boolean);
+    gsap.to(cards, {
+      opacity: 0, y: -12, scale: 0.97,
+      duration: 0.22, ease: 'power2.in',
+      onComplete: () => setActiveFilter(key)
+    });
+  }, [activeFilter]);
+
   const openModal = (idx) => {
-    setExpandedIdx(idx);
+    // Find real index in projectsData from filtered index
+    const realTitle = filtered[idx].title;
+    const realIdx = projectsData.findIndex(p => p.title === realTitle);
+    setExpandedIdx(realIdx);
     document.body.style.overflow = 'hidden';
     requestAnimationFrame(() => {
       gsap.fromTo(overlayRef.current,
@@ -92,16 +131,10 @@ const Projects = () => {
   };
 
   const closeModal = () => {
-    gsap.to(modalRef.current, {
-      scale: 0.9, opacity: 0, y: 30,
-      duration: 0.3, ease: 'power2.in'
-    });
+    gsap.to(modalRef.current, { scale: 0.9, opacity: 0, y: 30, duration: 0.3, ease: 'power2.in' });
     gsap.to(overlayRef.current, {
       opacity: 0, duration: 0.3, ease: 'power2.in',
-      onComplete: () => {
-        setExpandedIdx(null);
-        document.body.style.overflow = '';
-      }
+      onComplete: () => { setExpandedIdx(null); document.body.style.overflow = ''; }
     });
   };
 
@@ -117,62 +150,84 @@ const Projects = () => {
           </h2>
         </header>
 
-        <div className="proj-grid">
-          {projectsData.map((p, i) => (
-            <div
-              key={p.title}
-              className="proj-card"
-              ref={el => cardRefs.current[i] = el}
-              onClick={() => openModal(i)}
-              onMouseMove={(e) => {
-                if (!cardRefs.current[i]) return;
-                const rect = cardRefs.current[i].getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                cardRefs.current[i].style.setProperty("--mouse-x", `${x}px`);
-                cardRefs.current[i].style.setProperty("--mouse-y", `${y}px`);
-              }}
+        {/* ── Filter bar ── */}
+        <div className="proj-filters">
+          {FILTER_CATEGORIES.map(({ key, label }) => (
+            <button
+              key={key}
+              className={`proj-filter-btn${activeFilter === key ? ' proj-filter-active' : ''}`}
+              onClick={() => handleFilter(key)}
             >
-              <div className="proj-card-img">
-                {p.demoVideoLink ? (
-                  <iframe
-                    src={p.demoVideoLink}
-                    title={p.title}
-                    className="proj-card-iframe"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                ) : (
-                  <img src={p.image} alt={p.title} />
-                )}
-                <div className="proj-card-accent"></div>
-              </div>
-
-              <div className="proj-card-body">
-                <h3 className="proj-card-name">{p.title}</h3>
-                <div className="proj-card-tags">
-                  {p.tech.map(t => (
-                    <span key={t} className="proj-tag">{t}</span>
-                  ))}
-                </div>
-
-                <div className="proj-card-actions">
-                  {p.githubLink && (
-                    <a href={p.githubLink} onClick={(e) => e.stopPropagation()} target="_blank" rel="noopener noreferrer" className="proj-card-btn" title="GitHub Repository">
-                      <svg className="proj-btn-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.607.069-.607 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" /></svg>
-                      Code
-                    </a>
-                  )}
-                  {p.demoLink && (
-                    <a href={p.demoLink.startsWith('http') ? p.demoLink : `https://${p.demoLink}`} onClick={(e) => e.stopPropagation()} target="_blank" rel="noopener noreferrer" className="proj-card-btn proj-card-btn-primary" title="Live Demo">
-                      <svg className="proj-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                      Demo
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
+              {label}
+              {activeFilter === key && <span className="proj-filter-pill" />}
+            </button>
           ))}
+        </div>
+
+        {/* ── Cards grid ── */}
+        <div className="proj-grid">
+          {filtered.length === 0 ? (
+            <p className="proj-empty">No projects in this category yet.</p>
+          ) : (
+            filtered.map((p, i) => (
+              <div
+                key={p.title}
+                className="proj-card"
+                ref={el => cardRefs.current[i] = el}
+                onClick={() => openModal(i)}
+                onMouseMove={(e) => {
+                  if (!cardRefs.current[i]) return;
+                  const rect = cardRefs.current[i].getBoundingClientRect();
+                  cardRefs.current[i].style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                  cardRefs.current[i].style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                }}
+              >
+                {/* category badge */}
+                <span className="proj-cat-badge">
+                  {FILTER_CATEGORIES.find(f => f.key === p.filterCategory)?.label || p.category}
+                </span>
+
+                <div className="proj-card-img">
+                  {p.demoVideoLink ? (
+                    <iframe
+                      src={p.demoVideoLink}
+                      title={p.title}
+                      className="proj-card-iframe"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  ) : (
+                    <img src={p.image} alt={p.title} />
+                  )}
+                  <div className="proj-card-accent" />
+                </div>
+
+                <div className="proj-card-body">
+                  <h3 className="proj-card-name">{p.title}</h3>
+                  <div className="proj-card-tags">
+                    {p.tech.map(t => (
+                      <span key={t} className="proj-tag">{t}</span>
+                    ))}
+                  </div>
+
+                  <div className="proj-card-actions">
+                    {p.githubLink && (
+                      <a href={p.githubLink} onClick={e => e.stopPropagation()} target="_blank" rel="noopener noreferrer" className="proj-card-btn" title="GitHub Repository">
+                        <svg className="proj-btn-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.607.069-.607 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" /></svg>
+                        Code
+                      </a>
+                    )}
+                    {p.demoLink && (
+                      <a href={p.demoLink.startsWith('http') ? p.demoLink : `https://${p.demoLink}`} onClick={e => e.stopPropagation()} target="_blank" rel="noopener noreferrer" className="proj-card-btn proj-card-btn-primary" title="Live Demo">
+                        <svg className="proj-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
+                        Demo
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
 

@@ -153,7 +153,7 @@ const Timeline = () => {
   }, { scope: containerRef });
 
   return (
-    <section className="timeline-section" id="achievements">
+    <section className="timeline-section" id="timeline">
       <header className="timeline-header-container" ref={titleRef}>
         <p className="timeline-eyebrow">MILESTONES</p>
         <h2 className="timeline-title">

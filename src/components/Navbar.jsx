@@ -1,62 +1,90 @@
 import React, { useRef, useState, useEffect } from 'react'
 import './navbar.css'
 
+const NAV_ITEMS = [
+  { label: 'Home',          sectionId: 'home',          hash: '#home' },
+  { label: 'About',         sectionId: 'about',         hash: '#about' },
+  { label: 'Skills',        sectionId: 'skills',        hash: '#skills' },
+  { label: 'Projects',      sectionId: 'projects',      hash: '#projects' },
+  { label: 'Timeline',      sectionId: 'timeline',      hash: '#timeline' },
+  { label: 'Certificates',  sectionId: 'certificates',  hash: '#certificates' },
+  { label: 'Designs',       sectionId: 'figma-designs', hash: '#figma-designs' },
+  { label: 'Contact',       sectionId: 'contact',       hash: '#contact' },
+];
+
 const Navbar = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible]       = useState(true);
+  const [activeId, setActiveId]         = useState('home');
   const lastScrollY = useRef(0);
 
+  /* Hide on scroll down, show on scroll up */
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      // Hide if scrolling down and deeply past the hero banner. Show if scrolling up.
-      if (currentScrollY > lastScrollY.current && currentScrollY > 150) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-      lastScrollY.current = currentScrollY;
+      const cur = window.scrollY;
+      setIsVisible(cur < lastScrollY.current || cur < 150);
+      lastScrollY.current = cur;
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMenu = () => {
-    setIsMobileOpen(!isMobileOpen);
-  };
+  /* Track active section from URL hash */
+  useEffect(() => {
+    const onHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) setActiveId(hash);
+    };
+    window.addEventListener('hashchange', onHashChange);
+    // Set initial from hash
+    const init = window.location.hash.replace('#', '');
+    if (init) setActiveId(init);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
 
   const handleClick = (sectionId) => {
     const el = document.getElementById(sectionId);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
-    if (window.innerWidth <= 900) {
-      setIsMobileOpen(false);
-    }
+    setActiveId(sectionId);
+    if (window.innerWidth <= 900) setIsMobileOpen(false);
   };
-
-  const items = [
-    { label: 'Home',         sectionId: 'home' },
-    { label: 'About',        sectionId: 'about' },
-    { label: 'Skills',       sectionId: 'skills' },
-    { label: 'Projects',     sectionId: 'projects' },
-    { label: 'Certificates', sectionId: 'certificates' },
-    { label: 'Contact',      sectionId: 'contact' },
-  ];
 
   return (
     <>
-      <div className={`hamburger-icon ${isVisible ? '' : 'hidden'}`} onClick={toggleMenu}>
-        <i className={isMobileOpen ? 'ri-close-line' : 'ri-menu-line'}></i>
+      <div
+        className={`hamburger-icon ${isVisible ? '' : 'hidden'}`}
+        onClick={() => setIsMobileOpen(v => !v)}
+        aria-label="Toggle navigation menu"
+        role="button"
+      >
+        <i className={isMobileOpen ? 'ri-close-line' : 'ri-menu-line'} />
       </div>
-      <div className={`navbar ${isMobileOpen ? 'mobile-open' : ''} ${isVisible ? '' : 'nav-hidden'}`}>
+
+      <nav
+        className={`navbar ${isMobileOpen ? 'mobile-open' : ''} ${isVisible ? '' : 'nav-hidden'}`}
+        aria-label="Primary navigation"
+      >
         <ul className='list_ul'>
-          {items.map((item) => (
-            <li key={item.label} className='list_li' onClick={() => handleClick(item.sectionId)}>
-              <span className="t">{item.label}</span>
+          {NAV_ITEMS.map(({ label, sectionId, hash }) => (
+            <li
+              key={label}
+              className={`list_li${activeId === sectionId ? ' nav-active' : ''}`}
+              onClick={() => handleClick(sectionId)}
+            >
+              {/* semantic anchor for SEO crawlers */}
+              <a
+                href={hash}
+                className="t"
+                onClick={e => e.preventDefault()}
+                aria-label={`Navigate to ${label} section`}
+                aria-current={activeId === sectionId ? 'page' : undefined}
+              >
+                {label}
+              </a>
             </li>
           ))}
         </ul>
-      </div>
+      </nav>
     </>
   );
 };

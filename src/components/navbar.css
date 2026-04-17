@@ -49,12 +49,33 @@
   font-weight: 500;
   letter-spacing: 0.5px;
   transition: color 0.3s ease;
+  text-decoration: none;   /* reset anchor */
 }
 
 .list_li:hover .t {
   color: #FFE226;
   text-shadow: 0 0 12px rgba(255, 226, 38, 0.25);
 }
+
+/* ── Active section highlight ── */
+.nav-active .t {
+  color: #FFE226;
+  font-weight: 700;
+}
+
+.nav-active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #FFE226;
+  box-shadow: 0 0 8px rgba(255, 226, 38, 0.7);
+}
+
 
 .hamburger-icon {
   display: none;
