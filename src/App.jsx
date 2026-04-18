@@ -34,7 +34,6 @@ const SECTIONS = [
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 function App() {
-  const introRef = useRef(null);
   const textRef = useRef(null);
   const photoRef = useRef(null);
   const nameRef = useRef(null);
@@ -58,7 +57,6 @@ function App() {
 
   const buttonChars = "View My Work".split('');
   const resumeChars = "RESUME".split('');
-  const chars = "PARV'S PORTFOLIO".split('');
 
   const text = "I'm a passionate Full Stack Developer who enjoys building modern, scalable web applications. I work across both frontend and backend, creating seamless user experiences and efficient server-side logic. I love turning ideas into real-world products and continuously improving my skills with new technologies."
   const words = text.split(" ");
@@ -93,19 +91,6 @@ function App() {
         e.id = "important";
       }
     });
-
-    // Intro animation — char level is fine here (short text, runs once)
-    gsap.fromTo(
-      '.intro-text .char',
-      { y: 80, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.7,
-        ease: "expo.out",
-        stagger: 0.04
-      }
-    );
 
     // ── Lightweight scroll-reveal for section headings & paragraphs ──
     // Use LINE-level reveals (not char-level) to keep GPU happy.
@@ -142,38 +127,30 @@ function App() {
       );
     });
 
-    // Remove intro after animation
-    gsap.to(introRef.current, {
-      delay: 2.8,
-      duration: 0.8,
-      opacity: 0,
-      pointerEvents: "none"
-    });
-
     // Hero section animations
     gsap.fromTo(
       photoRef.current,
       { opacity: 0, x: -80 },
-      { opacity: 1, x: 0, duration: 0.9, ease: "power3.out", delay: 3.5 }
+      { opacity: 1, x: 0, duration: 0.9, ease: "power3.out", delay: 0 }
     );
 
     gsap.fromTo(
       nameRef.current,
       { opacity: 0, x: 80 },
-      { opacity: 1, x: 0, duration: 0.9, ease: "power3.out", delay: 3.7 }
+      { opacity: 1, x: 0, duration: 0.9, ease: "power3.out", delay: 0.05 }
     );
 
     gsap.fromTo(
       descRef.current,
       { opacity: 0, x: 80 },
-      { opacity: 1, x: 0, duration: 0.9, ease: "power3.out", delay: 3.9 }
+      { opacity: 1, x: 0, duration: 0.9, ease: "power3.out", delay: 0.1 }
     );
 
     // Button container
     gsap.fromTo(
       buttonRef.current,
       { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.7, ease: "back.out", delay: 4.1 }
+      { opacity: 1, y: 0, duration: 0.7, ease: "back.out", delay: 0.15 }
     );
 
     // About Me word-reveal (scrub animation — no change needed here, it's smooth)
@@ -210,17 +187,6 @@ function App() {
   return (
     <>
       <ParticleBackground />
-      <div className="intro-container" ref={introRef}>
-        <h1 className="intro-text" ref={textRef}>
-          <div className="char_container">
-            {chars.map((char, i) => (
-              <span key={i} className="char">
-                {char === ' ' ? '\u00A0' : char}
-              </span>
-            ))}
-          </div>
-        </h1>
-      </div>
       <Navbar />
       <section className="hero-section" id="home">
         <HeroDecor />
