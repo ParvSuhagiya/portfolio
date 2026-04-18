@@ -21,6 +21,11 @@ body {
   overflow-x: hidden;
 }
 
+/* Global box-sizing reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 /* ─── Intro Animation ─────────────────────────── */
 .intro-container {
   position: fixed;
@@ -303,13 +308,15 @@ body {
   }
 
   .hero-buttons {
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
     gap: 12px;
+    justify-content: center;
   }
 
   .cta-button {
-    width: 100%;
+    width: auto;
+    max-width: 280px;
     padding: 14px 24px;
     font-size: 0.88rem;
     white-space: normal;
@@ -342,6 +349,16 @@ body {
   .profile-img {
     width: 155px;
     height: 155px;
+  }
+
+  .hero-buttons {
+    gap: 10px;
+  }
+
+  .cta-button {
+    padding: 12px 20px;
+    font-size: 0.85rem;
+    max-width: 260px;
   }
 
   .hero-name {

@@ -482,6 +482,10 @@
   .proj-modal-media { height: 200px; }
   .proj-modal-links { flex-direction: column; gap: 10px; }
   .proj-btn-github,
-  .proj-btn-demo { width: 100%; justify-content: center; }
+  .proj-btn-demo { 
+    width: auto; 
+    max-width: 280px;
+    justify-content: center; 
+  }
 }
 

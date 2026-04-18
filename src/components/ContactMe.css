@@ -330,7 +330,11 @@
   }
 
   .ct-submit {
-    align-self: stretch;
+    align-self: center;
+    width: auto;
+    max-width: 280px;
+    padding: 14px 24px;
+    font-size: 0.85rem;
   }
 
   .ct-title {
